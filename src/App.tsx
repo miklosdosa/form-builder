@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { SnackbarProvider } from "notistack";
+import { DefinitionSection } from "./components/DefinitionSection";
+import { PreviewSection } from "./components/PreviewSection";
+import classes from "./App.module.scss";
+import { Stack } from "@mui/material";
+import { DialogProvider } from "./shared/components/DialogProvider/ConfirmDialogProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SnackbarProvider>
+      <DialogProvider>
+        <Stack direction="row" spacing={4}>
+          <div className={classes.column}>
+            <DefinitionSection />
+          </div>
+          <div className={classes.column}>
+            <PreviewSection />
+          </div>
+        </Stack>
+      </DialogProvider>
+    </SnackbarProvider>
   );
 }
+
+export { App };
 
 export default App;

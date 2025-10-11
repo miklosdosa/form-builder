@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
-import { App } from "./App";
+import { Icon } from "./Icon";
 
-describe("App", () => {
+describe("Icon", () => {
   it("should render properly", () => {
-    render(<App />);
+    render(<Icon name="AddCircle" />);
   });
 });
