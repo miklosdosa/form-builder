@@ -11,6 +11,7 @@ import { Placement, ThemeColors } from "../../types";
 type CommonProps = {
   tooltipTitle?: string;
   tooltipPlacement?: Placement;
+  className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onMouseDown?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
@@ -59,6 +60,7 @@ type Props = CommonProps & (WithChildren | WithoutChildren);
 const IconButton = memo(
   ({
     tooltipTitle,
+    className,
     onClick,
     onMouseDown,
     color,
@@ -75,6 +77,7 @@ const IconButton = memo(
     return (
       <Tooltip title={tooltipTitle} placement={tooltipPlacement}>
         <MuiIconButton
+          className={className}
           sx={sxProps}
           color={color}
           onClick={onClick}

@@ -2,7 +2,8 @@ import RGL, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ComponentType } from "react";
 import { LayoutDefinition } from "../../types";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
+import { IconButton } from "../IconButton";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -11,6 +12,7 @@ type GridRendererProps<T extends { id: string }, P> = {
   items: T[];
   ItemComponent: ComponentType<{ item: T } & P>;
   itemComponentProps?: P;
+  onLayoutUpdate?: (layout: LayoutDefinition) => void;
 };
 
 const OrderableGridRenderer = <T extends { id: string }, P = object>({
@@ -18,18 +20,38 @@ const OrderableGridRenderer = <T extends { id: string }, P = object>({
   items,
   ItemComponent,
   itemComponentProps,
+  onLayoutUpdate,
 }: GridRendererProps<T, P>) => {
   return (
     <ReactGridLayout
       className="layout"
       layout={layoutDefinition}
       cols={12}
-      rowHeight={60}
+      rowHeight={40}
+      draggableHandle=".drag-handle"
+      onLayoutChange={(layout) => {
+        console.log("on layout change: ", layout);
+        onLayoutUpdate?.(layout);
+      }}
     >
       {items.map((item) => (
-        <div key={item.id}>
+        <Box key={item.id} sx={{ "&:hover .drag-handle": { opacity: 1 } }}>
+          <IconButton
+            className="drag-handle"
+            size="small"
+            iconName="ControlCamera"
+            sxProps={{
+              backgroundColor: "white",
+              position: "absolute",
+              opacity: 0,
+              top: -16,
+              left: -16,
+              zIndex: 5,
+              "&:hover": { opacity: 1 },
+            }}
+          />
           <ItemComponent item={item} {...(itemComponentProps as P)} />
-        </div>
+        </Box>
       ))}
     </ReactGridLayout>
   );

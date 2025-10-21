@@ -1,10 +1,10 @@
-import { PreviewForm } from "./PreviewForm";
+import { PreviewForm } from "./LayoutForm";
 import { FieldBlockFormProvider, Title } from "../../shared/components";
 import { Stack } from "@mui/material";
 import { useFields } from "../../shared/hooks";
 import { useBoundStore } from "../../store/formEditorStore";
 
-const PreviewSection = () => {
+const LayoutSection = () => {
   const fields = useBoundStore((state) => state.fields);
   const validation = useBoundStore((state) => state.validation);
   const display = useBoundStore((state) => state.display);
@@ -17,7 +17,7 @@ const PreviewSection = () => {
 
   return (
     <Stack>
-      <Title main="Preview" mainProps={{ variant: "h4", component: "h1" }} />
+      <Title main="Layout" mainProps={{ variant: "h4", component: "h1" }} />
       <FieldBlockFormProvider
         defaultValues={defaultValues}
         validationSchema={validationSchema}
@@ -28,4 +28,4 @@ const PreviewSection = () => {
   );
 };
 
-export { PreviewSection };
+export { LayoutSection };

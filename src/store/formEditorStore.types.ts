@@ -3,6 +3,7 @@ import {
   DisplayRules,
   FieldBlockDefinition,
   FormDefinition,
+  LayoutDefinition,
   ValidationRule,
 } from "../shared/types";
 
@@ -47,7 +48,15 @@ interface DisplaySlice {
   updateDisplay: (payload: Display) => void;
 }
 
-type SliceIntersection = FormDefinitionSlice & ValidationSlice & DisplaySlice;
+interface LayoutSlice {
+  layout: LayoutDefinition;
+  updateLayout: (payload: LayoutDefinition) => void;
+}
+
+type SliceIntersection = FormDefinitionSlice &
+  ValidationSlice &
+  DisplaySlice &
+  LayoutSlice;
 
 export type {
   FormDefinitionSlice,
@@ -55,6 +64,7 @@ export type {
   Validation,
   DisplaySlice,
   Display,
+  LayoutSlice,
   SliceIntersection,
   PayloadAdd,
   PayloadUpdate,

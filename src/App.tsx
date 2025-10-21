@@ -1,6 +1,6 @@
 import { SnackbarProvider } from "notistack";
 import { DefinitionSection } from "./components/DefinitionSection";
-import { PreviewSection } from "./components/PreviewSection";
+import { LayoutSection } from "./components/LayoutSection";
 import classes from "./App.module.scss";
 import { Stack } from "@mui/material";
 import { DialogProvider } from "./shared/components/DialogProvider/ConfirmDialogProvider";
@@ -14,7 +14,7 @@ function App() {
             <DefinitionSection />
           </div>
           <div className={classes.column}>
-            <PreviewSection />
+            <LayoutSection />
           </div>
         </Stack>
       </DialogProvider>

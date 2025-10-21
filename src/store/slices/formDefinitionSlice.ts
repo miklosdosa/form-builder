@@ -83,6 +83,16 @@ const formDefinitionSlice: StateCreator<
             definitionType: payload.definitionType ?? "TextField",
           },
         ],
+        layout: [
+          ...state.layout,
+          {
+            i: payload.id,
+            x: 0,
+            y: state.layout.length,
+            w: 12,
+            h: 1,
+          },
+        ],
       };
     }),
   updateField: (payload) => {

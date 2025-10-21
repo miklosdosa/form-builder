@@ -59,4 +59,5 @@ export {
   Description,
   Image,
   DashboardCustomize,
+  ControlCamera,
 } from "@mui/icons-material";
