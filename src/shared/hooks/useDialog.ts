@@ -1,8 +1,9 @@
-import { createContext, useContext } from "react";
+import { ComponentType, createContext, useContext } from "react";
 
 type DialogData = {
   title: string;
-  content?: string;
+  content?: ComponentType | string;
+  fullScreen?: boolean;
   closeButton: string;
   closeAction?: () => void;
   actions?: {

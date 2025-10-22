@@ -12,6 +12,7 @@ import { Dialog, DialogData } from "../../hooks/useDialog";
 const DialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<DialogData & { isOpen: boolean }>({
     isOpen: false,
+    fullScreen: false,
     title: "",
     content: "",
     closeButton: "",
@@ -43,12 +44,17 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
       <MuiDialog
         id="confirm-dialog"
         maxWidth="md"
+        fullScreen={state.fullScreen}
         open={state.isOpen}
         PaperProps={{ sx: { overflow: "visible" } }}
       >
         {state.title && <DialogTitle>{state.title}</DialogTitle>}
         <DialogContent id="confirm-dialog-content" dividers>
-          {state.content}
+          {typeof state.content === "string" ? (
+            state.content
+          ) : state.content ? (
+            <state.content />
+          ) : null}
         </DialogContent>
         <DialogActions
           id="confirm-dialog-actions"

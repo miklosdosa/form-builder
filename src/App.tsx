@@ -4,11 +4,13 @@ import { LayoutSection } from "./components/LayoutSection";
 import classes from "./App.module.scss";
 import { Stack } from "@mui/material";
 import { DialogProvider } from "./shared/components/DialogProvider/ConfirmDialogProvider";
+import { MainAppBar } from "./components/MainAppBar";
 
 function App() {
   return (
     <SnackbarProvider>
       <DialogProvider>
+        <MainAppBar />
         <Stack direction="row" spacing={4}>
           <div className={classes.column}>
             <DefinitionSection />

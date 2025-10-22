@@ -60,4 +60,5 @@ export {
   Image,
   DashboardCustomize,
   ControlCamera,
+  Launch,
 } from "@mui/icons-material";

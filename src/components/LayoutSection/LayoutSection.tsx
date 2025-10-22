@@ -1,4 +1,4 @@
-import { PreviewForm } from "./LayoutForm";
+import { LayoutForm } from "./LayoutForm";
 import { FieldBlockFormProvider, Title } from "../../shared/components";
 import { Stack } from "@mui/material";
 import { useFields } from "../../shared/hooks";
@@ -22,7 +22,7 @@ const LayoutSection = () => {
         defaultValues={defaultValues}
         validationSchema={validationSchema}
       >
-        <PreviewForm fields={formDefinition} displayRules={displayRules} />
+        <LayoutForm fields={formDefinition} displayRules={displayRules} />
       </FieldBlockFormProvider>
     </Stack>
   );

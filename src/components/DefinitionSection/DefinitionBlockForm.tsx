@@ -15,7 +15,10 @@ import { useCallback, useEffect } from "react";
 import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
 import { useDialog } from "../../shared/hooks/useDialog";
 import { DefinitionError } from "../../store/formEditorStore.types";
-import { GridRenderer } from "../../shared/components/GridRenderer";
+import {
+  FieldBlockItem,
+  GridRenderer,
+} from "../../shared/components/GridRenderer";
 
 type DefinitionBlockEditFormProps<T> = {
   formDefinition: FormDefinition;
@@ -105,7 +108,7 @@ const DefinitionBlockForm = <T extends FieldValues>({
           <GridRenderer
             layoutDefinition={layoutDefinition}
             items={formDefinition}
-            ItemComponent={TestItem}
+            ItemComponent={FieldBlockItem}
           />
         ) : (
           formDefinition.map((definition) => (
@@ -141,12 +144,5 @@ const DefinitionBlockForm = <T extends FieldValues>({
     </form>
   );
 };
-
-const TestItem = ({ item }) => (
-  <FieldBlock
-    definition={item}
-    //displayRules={displayRules?.[item.name]}
-  />
-);
 
 export { DefinitionBlockForm };
