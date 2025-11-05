@@ -2,7 +2,7 @@ import {
   BasicDataFormValues,
   DisplayRules,
   FieldBlockDefinition,
-  FormDefinition,
+  FormDefinitionSteps,
   LayoutDefinition,
   ValidationRule,
 } from "../shared/types";
@@ -25,8 +25,13 @@ type DefinitionError = {
 type Validation = Record<string, ValidationRule[]>;
 type Display = DisplayRules;
 
+type FormStep = {
+  id: string;
+  name: string;
+};
+
 interface FormDefinitionSlice {
-  fields: FormDefinition;
+  definitions: FormDefinitionSteps;
   errors: DefinitionError[];
   fieldUnderEdit: string | null;
   addField: (payload: PayloadAdd) => void;
@@ -53,10 +58,18 @@ interface LayoutSlice {
   updateLayout: (payload: LayoutDefinition) => void;
 }
 
+interface FormStepSlice {
+  steps: FormStep[];
+  selectedStep: string;
+  addStep: (payload: Pick<FormStep, "name">) => void;
+  setSelectedStep: (id: string) => void;
+}
+
 type SliceIntersection = FormDefinitionSlice &
   ValidationSlice &
   DisplaySlice &
-  LayoutSlice;
+  LayoutSlice &
+  FormStepSlice;
 
 export type {
   FormDefinitionSlice,
@@ -65,8 +78,10 @@ export type {
   DisplaySlice,
   Display,
   LayoutSlice,
+  FormStepSlice,
   SliceIntersection,
   PayloadAdd,
   PayloadUpdate,
   DefinitionError,
+  FormStep,
 };

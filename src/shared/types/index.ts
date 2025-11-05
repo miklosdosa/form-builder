@@ -73,7 +73,7 @@ type OptionDefinition = {
 };
 
 type FieldArrayDefinition<T = string> = {
-  fields: FormDefinition<T>;
+  fields: FieldBlockDefinitionArray<T>;
   type: "array";
 } & FieldDefinition<T>;
 
@@ -104,7 +104,9 @@ type FieldBlockDefinition<T = string> =
   | BooleanDefinition<T>
   | DateTimeDefinition<T>;
 
-type FormDefinition<T = string> = FieldBlockDefinition<T>[];
+type FieldBlockDefinitionArray<T = string> = FieldBlockDefinition<T>[];
+
+type FormDefinitionSteps = Record<string, FieldBlockDefinitionArray>;
 
 type ThemeColors =
   | "disabled"
@@ -180,7 +182,7 @@ export type {
   FieldBlockDefinition,
   SelectFieldDefinition,
   DateTimeDefinition,
-  FormDefinition,
+  FieldBlockDefinitionArray,
   FieldArrayDefinition,
   BooleanDefinition,
   OptionDefinition,
@@ -195,4 +197,5 @@ export type {
   DisplayDataFormValues,
   FieldDisplayRules,
   LayoutDefinition,
+  FormDefinitionSteps,
 };

@@ -1,13 +1,13 @@
 import { AddDefinition } from "./AddDefinition";
-import { FormDefinitionContainer } from "./FormDefinition";
 import { Stack } from "@mui/material";
 import { Title } from "../../shared/components";
+import { FormDefinitionContainer } from "./FormDefinition";
 
 const DefinitionSection = () => (
   <Stack component="section" flexDirection="column">
     <Title
       main="Edit definition"
-      mainProps={{ variant: "h4", component: "h1" }}
+      mainProps={{ variant: "h5", component: "h1" }}
     />
     <AddDefinition />
     <FormDefinitionContainer />

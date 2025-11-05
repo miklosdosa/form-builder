@@ -4,7 +4,7 @@ import {
   DefinitionType,
   DisplayRules,
   FieldBlockDefinition,
-  FormDefinition,
+  FieldBlockDefinitionArray,
   SelectFieldDefinition,
   SelectFieldTypes,
   TextFieldDefinition,
@@ -60,7 +60,7 @@ const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {
 };
 
 const getDefaultValues = (
-  fields: FormDefinition,
+  fields: FieldBlockDefinitionArray,
   initialValues?: Record<string, any>
 ) => {
   let newDefaultValues = {};
@@ -100,7 +100,7 @@ const getDefaultValues = (
 };
 
 type useFieldsProps = {
-  definition: FormDefinition;
+  definition: FieldBlockDefinitionArray;
   initialValues?: object;
   rules?: any;
   displayRules?: DisplayRules;
@@ -129,7 +129,7 @@ const useFields = ({
 
   const displayRulesMem = useMemo(() => displayRules, [displayRules]);
 
-  const updateFormDefinition = (newValues: FormDefinition) => {
+  const updateFormDefinition = (newValues: FieldBlockDefinitionArray) => {
     setFormDefinition(newValues);
   };
 

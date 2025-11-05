@@ -4,12 +4,13 @@ import { useFields } from "../../shared/hooks";
 import { useBoundStore } from "../../store/formEditorStore";
 
 const Preview = () => {
-  const fields = useBoundStore((state) => state.fields);
+  const selectedStep = useBoundStore((state) => state.selectedStep);
+  const fields = useBoundStore((state) => state.definitions);
   const validation = useBoundStore((state) => state.validation);
   const display = useBoundStore((state) => state.display);
   const { defaultValues, formDefinition, validationSchema, displayRules } =
     useFields({
-      definition: fields,
+      definition: fields[selectedStep],
       rules: validation,
       displayRules: display,
     });

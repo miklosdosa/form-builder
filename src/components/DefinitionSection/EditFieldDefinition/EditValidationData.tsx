@@ -1,7 +1,7 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
 import {
-  FormDefinition,
+  FieldBlockDefinitionArray,
   ValidationDataFormValues,
   ValidationRule,
 } from "../../../shared/types";
@@ -11,7 +11,7 @@ import { useFields } from "../../../shared/hooks";
 import { Validation } from "../../../store/formEditorStore.types";
 
 type EditValidationDataProps = {
-  initFormDefinition: FormDefinition;
+  initFormDefinition: FieldBlockDefinitionArray;
   fieldBlockName: string;
   update: (payload: Validation) => void;
   initialValues?: ValidationRule[];

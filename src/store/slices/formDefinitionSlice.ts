@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { FormDefinition } from "../../shared/types";
+import { FormDefinitionSteps } from "../../shared/types";
 import {
   DefinitionError,
   FormDefinitionSlice,
@@ -7,24 +7,30 @@ import {
   SliceIntersection,
 } from "../formEditorStore.types";
 
-const initialFields: FormDefinition = [];
+const initialDefinitions: FormDefinitionSteps = {
+  initial_step: [],
+};
 
 const calculateUpdateResult = (
   state: SliceIntersection,
   payload: PayloadUpdate
 ) => {
   const errors: DefinitionError[] = [];
-  const fields = [...state.fields];
-  const oldPosition = state.fields.findIndex(
+  const fields = [...state.definitions[state.selectedStep]];
+  const oldPosition = state.definitions[state.selectedStep].findIndex(
     (field) => field.id === payload.currentId
   );
   if (oldPosition === -1) {
     throw Error("Block not found");
   }
-  const originalBlock = state.fields[oldPosition];
+  const originalBlock = state.definitions[state.selectedStep][oldPosition];
 
   if (originalBlock.id !== payload.id) {
-    if (state.fields.findIndex((field) => field.id === payload.id) !== -1) {
+    if (
+      state.definitions[state.selectedStep].findIndex(
+        (field) => field.id === payload.id
+      ) !== -1
+    ) {
       errors.push({
         fieldId: originalBlock.id,
         propertyName: "id",
@@ -34,7 +40,11 @@ const calculateUpdateResult = (
   }
 
   if (originalBlock.name !== payload.name) {
-    if (state.fields.findIndex((field) => field.name === payload.name) !== -1) {
+    if (
+      state.definitions[state.selectedStep].findIndex(
+        (field) => field.name === payload.name
+      ) !== -1
+    ) {
       errors.push({
         fieldId: originalBlock.id,
         propertyName: "name",
@@ -44,6 +54,7 @@ const calculateUpdateResult = (
   }
 
   if (errors.findIndex((error) => error.fieldId === originalBlock.id) === -1) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updated: any = {
       ...fields[oldPosition],
       ...payload,
@@ -64,7 +75,7 @@ const formDefinitionSlice: StateCreator<
   [],
   FormDefinitionSlice
 > = (set, get) => ({
-  fields: initialFields,
+  definitions: initialDefinitions,
   errors: [],
   fieldUnderEdit: null,
   setFieldUnderEdit: (id) =>
@@ -74,15 +85,19 @@ const formDefinitionSlice: StateCreator<
   addField: (payload) =>
     set((state) => {
       return {
-        fields: [
-          ...state.fields,
-          {
-            id: payload.id,
-            name: payload.name,
-            type: (payload.type as any) ?? "text",
-            definitionType: payload.definitionType ?? "TextField",
-          },
-        ],
+        definitions: {
+          ...state.definitions,
+          [state.selectedStep]: [
+            ...state.definitions[state.selectedStep],
+            {
+              id: payload.id,
+              name: payload.name,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              type: (payload.type as any) ?? "text",
+              definitionType: payload.definitionType ?? "TextField",
+            },
+          ],
+        },
         layout: [
           ...state.layout,
           {
@@ -97,15 +112,18 @@ const formDefinitionSlice: StateCreator<
     }),
   updateField: (payload) => {
     const result = calculateUpdateResult(get(), payload);
-    set({
-      fields: result.fields,
+    set((state) => ({
+      definitions: {
+        ...state.definitions,
+        [state.selectedStep]: result.fields,
+      },
       errors: result.errors,
-    });
+    }));
     return result;
   },
   deleteField: (payload) =>
     set((state) => {
-      const oldPosition = state.fields.findIndex(
+      const oldPosition = state.definitions[state.selectedStep].findIndex(
         (field) => field.id === payload.id
       );
 
@@ -113,12 +131,15 @@ const formDefinitionSlice: StateCreator<
         throw Error("Block not found");
       }
 
-      const fields = [...state.fields];
+      const fields = [...state.definitions[state.selectedStep]];
 
       fields.splice(oldPosition, 1);
 
       return {
-        fields,
+        definitions: {
+          ...state.definitions,
+          [state.selectedStep]: fields,
+        },
       };
     }),
 });

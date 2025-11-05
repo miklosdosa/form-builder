@@ -3,7 +3,7 @@ import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Button } from "../../shared/components/Button";
 import { Stack } from "@mui/material";
 // import hash from "object-hash";
-import { DisplayRules, FormDefinition } from "../../shared/types";
+import { DisplayRules, FieldBlockDefinitionArray } from "../../shared/types";
 import {
   FieldBlockItem,
   GridRenderer,
@@ -11,7 +11,7 @@ import {
 import { useBoundStore } from "../../store/formEditorStore";
 
 type PreviewFormProps = {
-  fields: FormDefinition;
+  fields: FieldBlockDefinitionArray;
   displayRules?: DisplayRules;
 };
 

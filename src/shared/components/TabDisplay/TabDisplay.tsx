@@ -68,7 +68,8 @@ const TabDisplay = memo(({ tabs, tabChangeEvent }: TabDisplayProps) => {
   }, [tabsRef.current?.clientHeight]);
 
   const handleChange = useCallback(
-    (_, newValue: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (_: any, newValue: number) => {
       if (tabChangeEvent) {
         publish(tabChangeEvent, { proceed: () => setValue(newValue) });
       } else {

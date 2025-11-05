@@ -2,12 +2,14 @@ import {
   DefinitionType,
   DisplayRules,
   FieldBlockDefinition,
-  FormDefinition,
+  FieldBlockDefinitionArray,
   LayoutDefinition,
   TextFieldDefinition,
 } from "../../shared/types";
 
-const commonFormDefinitionFields: FormDefinition<keyof FieldBlockDefinition> = [
+const commonFormDefinitionFields: FieldBlockDefinitionArray<
+  keyof FieldBlockDefinition
+> = [
   {
     id: "id",
     definitionType: "TextField",
@@ -31,60 +33,61 @@ const commonFormDefinitionFields: FormDefinition<keyof FieldBlockDefinition> = [
   },
 ];
 
-const textFormDefinition: FormDefinition<keyof TextFieldDefinition> = [
-  ...commonFormDefinitionFields,
-  {
-    id: "type",
-    definitionType: "Select",
-    multiple: false,
-    name: "type",
-    label: "Type",
-    type: "select",
-    options: [
-      {
-        name: "textFieldType",
-        values: [
-          {
-            id: "text",
-            label: "Text",
-            value: "text",
-          },
-          {
-            id: "number",
-            label: "Number",
-            value: "number",
-          },
-          {
-            id: "email",
-            label: "Email",
-            value: "email",
-          },
-          {
-            id: "password",
-            label: "Password",
-            value: "password",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "defaultValue",
-    name: "defaultValue",
-    definitionType: "TextField",
-    label: "Default value",
-    type: "text",
-  },
-  {
-    id: "placeholder",
-    definitionType: "TextField",
-    name: "placeholder",
-    label: "Placeholder",
-    type: "text",
-  },
-];
+const textFormDefinition: FieldBlockDefinitionArray<keyof TextFieldDefinition> =
+  [
+    ...commonFormDefinitionFields,
+    {
+      id: "type",
+      definitionType: "Select",
+      multiple: false,
+      name: "type",
+      label: "Type",
+      type: "select",
+      options: [
+        {
+          name: "textFieldType",
+          values: [
+            {
+              id: "text",
+              label: "Text",
+              value: "text",
+            },
+            {
+              id: "number",
+              label: "Number",
+              value: "number",
+            },
+            {
+              id: "email",
+              label: "Email",
+              value: "email",
+            },
+            {
+              id: "password",
+              label: "Password",
+              value: "password",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "defaultValue",
+      name: "defaultValue",
+      definitionType: "TextField",
+      label: "Default value",
+      type: "text",
+    },
+    {
+      id: "placeholder",
+      definitionType: "TextField",
+      name: "placeholder",
+      label: "Placeholder",
+      type: "text",
+    },
+  ];
 
-const selectFormDefinition: FormDefinition = [
+const selectFormDefinition: FieldBlockDefinitionArray = [
   ...commonFormDefinitionFields,
   {
     id: "options",
@@ -186,9 +189,11 @@ const selectFormDefinition: FormDefinition = [
   },
 ];
 
-const dateFieldFormDefinition: FormDefinition = [...commonFormDefinitionFields];
+const dateFieldFormDefinition: FieldBlockDefinitionArray = [
+  ...commonFormDefinitionFields,
+];
 
-const textFieldValidationFormDefinition: FormDefinition = [
+const textFieldValidationFormDefinition: FieldBlockDefinitionArray = [
   {
     id: "isRequired",
     name: "isRequired",
@@ -210,7 +215,7 @@ const textFieldValidationFormDefinition: FormDefinition = [
   },
 ];
 
-const selectFieldValidationFormDefinition: FormDefinition = [
+const selectFieldValidationFormDefinition: FieldBlockDefinitionArray = [
   {
     id: "isRequired",
     name: "isRequired",
@@ -232,7 +237,7 @@ const selectFieldValidationFormDefinition: FormDefinition = [
   },
 ];
 
-const textFieldDisplayRulesFormDefinition: FormDefinition = [
+const textFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
   {
     id: "disabled",
     name: "isDisabled",
@@ -259,7 +264,7 @@ const textFieldDisplayRulesFormDefinition: FormDefinition = [
   },
 ];
 
-const selectFieldDisplayRulesFormDefinition: FormDefinition = [
+const selectFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
   {
     id: "disabled",
     name: "isDisabled",
@@ -348,7 +353,7 @@ const formDefinitionDisplayRules: Record<DefinitionType, DisplayRules> = {
   DateTime: {},
 };
 
-const formDefinitions: Record<DefinitionType, FormDefinition> = {
+const formDefinitions: Record<DefinitionType, FieldBlockDefinitionArray> = {
   TextField: textFormDefinition,
   Select: selectFormDefinition,
   FieldArray: [],
@@ -356,7 +361,10 @@ const formDefinitions: Record<DefinitionType, FormDefinition> = {
   DateTime: dateFieldFormDefinition,
 };
 
-const formValidationFormDefinitions: Record<DefinitionType, FormDefinition> = {
+const formValidationFormDefinitions: Record<
+  DefinitionType,
+  FieldBlockDefinitionArray
+> = {
   TextField: textFieldValidationFormDefinition,
   Select: selectFieldValidationFormDefinition,
   FieldArray: [],
@@ -364,14 +372,16 @@ const formValidationFormDefinitions: Record<DefinitionType, FormDefinition> = {
   DateTime: [],
 };
 
-const formDisplayRulesFormDefinitions: Record<DefinitionType, FormDefinition> =
-  {
-    TextField: textFieldDisplayRulesFormDefinition,
-    Select: selectFieldDisplayRulesFormDefinition,
-    FieldArray: [],
-    Boolean: [],
-    DateTime: [],
-  };
+const formDisplayRulesFormDefinitions: Record<
+  DefinitionType,
+  FieldBlockDefinitionArray
+> = {
+  TextField: textFieldDisplayRulesFormDefinition,
+  Select: selectFieldDisplayRulesFormDefinition,
+  FieldArray: [],
+  Boolean: [],
+  DateTime: [],
+};
 
 const formDefinitionLayout: Record<DefinitionType, LayoutDefinition> = {
   TextField: textFieldLayout,
