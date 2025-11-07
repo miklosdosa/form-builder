@@ -33,6 +33,10 @@ const formStepSlice: StateCreator<SliceIntersection, [], [], FormStepSlice> = (
           ...state.definitions,
           [id]: [],
         },
+        layouts: {
+          ...state.layouts,
+          [id]: [],
+        },
       };
     }),
   setSelectedStep: (id) => set(() => ({ selectedStep: id })),

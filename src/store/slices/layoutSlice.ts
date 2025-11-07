@@ -1,16 +1,21 @@
 import { StateCreator } from "zustand";
 import { SliceIntersection, LayoutSlice } from "../formEditorStore.types";
-import { LayoutDefinition } from "../../shared/types";
+import { FormDefinitionLayouts } from "../../shared/types";
 
-const initialLayout: LayoutDefinition = [];
+const initialLayouts: FormDefinitionLayouts = {
+  initial_step: [],
+};
 
 const layoutSlice: StateCreator<SliceIntersection, [], [], LayoutSlice> = (
   set
 ) => ({
-  layout: initialLayout,
+  layouts: initialLayouts,
   updateLayout: (payload) =>
-    set(() => ({
-      layout: [...payload],
+    set((state) => ({
+      layouts: {
+        ...state.layouts,
+        [state.selectedStep]: [...payload],
+      },
     })),
 });
 

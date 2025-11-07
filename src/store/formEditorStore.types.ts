@@ -2,6 +2,7 @@ import {
   BasicDataFormValues,
   DisplayRules,
   FieldBlockDefinition,
+  FormDefinitionLayouts,
   FormDefinitionSteps,
   LayoutDefinition,
   ValidationRule,
@@ -54,7 +55,7 @@ interface DisplaySlice {
 }
 
 interface LayoutSlice {
-  layout: LayoutDefinition;
+  layouts: FormDefinitionLayouts;
   updateLayout: (payload: LayoutDefinition) => void;
 }
 

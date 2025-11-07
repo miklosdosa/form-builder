@@ -15,8 +15,14 @@ type LayoutFormProps = {
 
 const LayoutForm = ({ fields = [], displayRules }: LayoutFormProps) => {
   // const formKey = hash(fields);
-  const layoutDefinition = useBoundStore((state) => state.layout);
+  const layoutDefinition = useBoundStore(
+    (state) => state.layouts[state.selectedStep]
+  );
   const updateLayout = useBoundStore((state) => state.updateLayout);
+
+  const state = useBoundStore((state) => state);
+
+  console.log(state);
 
   return (
     <Stack direction="column" spacing={2}>

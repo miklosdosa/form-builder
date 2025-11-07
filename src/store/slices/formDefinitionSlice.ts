@@ -98,16 +98,19 @@ const formDefinitionSlice: StateCreator<
             },
           ],
         },
-        layout: [
-          ...state.layout,
-          {
-            i: payload.id,
-            x: 0,
-            y: state.layout.length,
-            w: 12,
-            h: 1,
-          },
-        ],
+        layouts: {
+          ...state.layouts,
+          [state.selectedStep]: [
+            ...state.layouts[state.selectedStep],
+            {
+              i: payload.id,
+              x: 0,
+              y: state.layouts[state.selectedStep].length,
+              w: 12,
+              h: 1,
+            },
+          ],
+        },
       };
     }),
   updateField: (payload) => {

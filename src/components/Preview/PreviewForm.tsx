@@ -18,7 +18,9 @@ type PreviewFormProps = {
 const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {
   // const formKey = hash(fields);
   const methods = useFormContext();
-  const layoutDefinition = useBoundStore((state) => state.layout);
+  const layoutDefinition = useBoundStore(
+    (state) => state.layouts[state.selectedStep]
+  );
   const updateLayout = useBoundStore((state) => state.updateLayout);
   const { handleSubmit } = methods;
 

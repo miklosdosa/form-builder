@@ -108,6 +108,8 @@ type FieldBlockDefinitionArray<T = string> = FieldBlockDefinition<T>[];
 
 type FormDefinitionSteps = Record<string, FieldBlockDefinitionArray>;
 
+type FormDefinitionLayouts = Record<string, LayoutDefinition>;
+
 type ThemeColors =
   | "disabled"
   | "action"
@@ -198,4 +200,5 @@ export type {
   FieldDisplayRules,
   LayoutDefinition,
   FormDefinitionSteps,
+  FormDefinitionLayouts,
 };
