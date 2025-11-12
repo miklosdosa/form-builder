@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   DefinitionType,
   DisplayRules,
@@ -9,13 +9,14 @@ import {
   SelectFieldTypes,
   TextFieldDefinition,
 } from "../types";
+import { useBoundStore } from "../../store/formEditorStore";
 
 const getSchema = (
   rules?: Record<
     string,
     {
       type: string;
-      errorMessage: string;
+      errorMessage?: string;
       value?: any;
     }[]
   >
@@ -112,34 +113,39 @@ const useFields = ({
   rules,
   displayRules,
 }: useFieldsProps) => {
-  const [formDefinition, setFormDefinition] = useState(definition);
-  const [defaultValues, setDefaultValues] = useState(initialValues);
+  const defaultValuesMem = useMemo(
+    () => getDefaultValues(definition, initialValues),
+    [definition, initialValues]
+  );
 
-  useEffect(() => {
-    setFormDefinition(definition);
-  }, [definition]);
-
-  useEffect(() => {
-    setDefaultValues(getDefaultValues(definition, initialValues));
-  }, [definition, initialValues, setDefaultValues]);
-
-  const validationSchema = useMemo(() => {
-    return getSchema(rules);
-  }, [rules]);
+  const validationSchema = useMemo(() => getSchema(rules), [rules]);
 
   const displayRulesMem = useMemo(() => displayRules, [displayRules]);
 
-  const updateFormDefinition = (newValues: FieldBlockDefinitionArray) => {
-    setFormDefinition(newValues);
-  };
-
   return {
-    formDefinition,
-    defaultValues,
+    formDefinition: definition,
+    defaultValues: defaultValuesMem,
     validationSchema,
     displayRules: displayRulesMem,
-    updateFormDefinition,
   };
 };
 
-export { useFields };
+const useStoreFields = () => {
+  const selectedStep = useBoundStore((state) => state.selectedStep);
+  const fields = useBoundStore((state) => state.definitions);
+  const validation = useBoundStore((state) => state.validation);
+  const displayRules = useBoundStore((state) => state.display);
+  const layouts = useBoundStore((state) => state.layouts);
+
+  const validationSchema = useMemo(() => getSchema(validation), [validation]);
+
+  return {
+    fields: fields[selectedStep],
+    validationSchema,
+    defaultValues: getDefaultValues(fields[selectedStep]),
+    displayRules,
+    layoutDefinition: layouts[selectedStep],
+  };
+};
+
+export { useFields, useStoreFields };

@@ -22,19 +22,13 @@ type EditBasicDataProps = {
 const EditBasicData = ({ definition }: EditBasicDataProps) => {
   const { id: definitionId, definitionType } = definition;
   const updateField = useBoundStore((state) => state.updateField);
-
-  const {
-    formDefinition,
-    defaultValues,
-    validationSchema,
-    displayRules,
-    updateFormDefinition,
-  } = useFields({
-    definition: formDefinitions[definitionType],
-    initialValues: definition,
-    rules: formDefinitionValidationRules[definitionType],
-    displayRules: formDefinitionDisplayRules[definitionType],
-  });
+  const { formDefinition, defaultValues, validationSchema, displayRules } =
+    useFields({
+      definition: formDefinitions[definitionType],
+      initialValues: definition,
+      rules: formDefinitionValidationRules[definitionType],
+      displayRules: formDefinitionDisplayRules[definitionType],
+    });
 
   const layoutDefinition = formDefinitionLayout[definitionType];
 
@@ -59,7 +53,6 @@ const EditBasicData = ({ definition }: EditBasicDataProps) => {
         formDefinition={formDefinition}
         displayRules={displayRules}
         layoutDefinition={layoutDefinition}
-        updateFormDefinition={updateFormDefinition}
         onSaveData={handleSaveData}
       />
     </FieldBlockFormProvider>

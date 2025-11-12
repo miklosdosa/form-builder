@@ -1,7 +1,11 @@
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Stack } from "@mui/material";
 // import hash from "object-hash";
-import { DisplayRules, FieldBlockDefinitionArray } from "../../shared/types";
+import {
+  DisplayRules,
+  FieldBlockDefinitionArray,
+  LayoutDefinition,
+} from "../../shared/types";
 import {
   FieldBlockItem,
   OrderableGridRenderer,
@@ -10,20 +14,17 @@ import { useBoundStore } from "../../store/formEditorStore";
 
 type LayoutFormProps = {
   fields: FieldBlockDefinitionArray;
+  layoutDefinition?: LayoutDefinition;
   displayRules?: DisplayRules;
 };
 
-const LayoutForm = ({ fields = [], displayRules }: LayoutFormProps) => {
+const LayoutForm = ({
+  fields = [],
+  displayRules,
+  layoutDefinition,
+}: LayoutFormProps) => {
   // const formKey = hash(fields);
-  const layoutDefinition = useBoundStore(
-    (state) => state.layouts[state.selectedStep]
-  );
   const updateLayout = useBoundStore((state) => state.updateLayout);
-
-  const state = useBoundStore((state) => state);
-
-  console.log(state);
-
   return (
     <Stack direction="column" spacing={2}>
       {layoutDefinition !== undefined ? (

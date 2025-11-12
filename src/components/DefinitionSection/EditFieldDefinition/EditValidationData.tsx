@@ -38,18 +38,13 @@ const EditValidationData = ({
     return values;
   }, [initialValues]);
 
-  const {
-    formDefinition,
-    defaultValues,
-    validationSchema,
-    displayRules,
-    updateFormDefinition,
-  } = useFields({
-    definition: initFormDefinition,
-    initialValues: transformedInitialValues,
-    /* rules: formDefinitionValidationRules[definitionType],
+  const { formDefinition, defaultValues, validationSchema, displayRules } =
+    useFields({
+      definition: initFormDefinition,
+      initialValues: transformedInitialValues,
+      /* rules: formDefinitionValidationRules[definitionType],
     displayRules: formDefinitionDisplayRules[definitionType], */
-  });
+    });
 
   const handleSaveData = useCallback(
     (data: ValidationDataFormValues) => {
@@ -86,7 +81,6 @@ const EditValidationData = ({
       <DefinitionBlockForm
         formDefinition={formDefinition}
         displayRules={displayRules}
-        updateFormDefinition={updateFormDefinition}
         onSaveData={handleSaveData}
       />
     </FieldBlockFormProvider>

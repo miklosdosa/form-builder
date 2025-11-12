@@ -44,18 +44,13 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
     return values;
   }, [name, display]);
 
-  const {
-    formDefinition,
-    defaultValues,
-    validationSchema,
-    displayRules,
-    updateFormDefinition,
-  } = useFields({
-    definition: formDisplayRulesFormDefinitions[definitionType],
-    initialValues,
-    /* rules: formDefinitionValidationRules[definitionType],
+  const { formDefinition, defaultValues, validationSchema, displayRules } =
+    useFields({
+      definition: formDisplayRulesFormDefinitions[definitionType],
+      initialValues,
+      /* rules: formDefinitionValidationRules[definitionType],
     displayRules: formDefinitionDisplayRules[definitionType], */
-  });
+    });
 
   const handleSaveData = useCallback(
     (data: DisplayDataFormValues) => {
@@ -104,7 +99,6 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
       <DefinitionBlockForm
         formDefinition={formDefinition}
         displayRules={displayRules}
-        updateFormDefinition={updateFormDefinition}
         onSaveData={handleSaveData}
       />
     </FieldBlockFormProvider>

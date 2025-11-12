@@ -25,17 +25,19 @@ const OrderableGridRenderer = <T extends { id: string }, P = object>({
   return (
     <ReactGridLayout
       className="layout"
-      layout={layoutDefinition}
       cols={12}
       rowHeight={40}
       draggableHandle=".drag-handle"
       onLayoutChange={(layout) => {
-        console.log("on layout change: ", layout);
         onLayoutUpdate?.(layout);
       }}
     >
-      {items.map((item) => (
-        <Box key={item.id} sx={{ "&:hover .drag-handle": { opacity: 1 } }}>
+      {items.map((item, i) => (
+        <Box
+          key={item.id}
+          data-grid={layoutDefinition[i]}
+          sx={{ "&:hover .drag-handle": { opacity: 1 } }}
+        >
           <IconButton
             className="drag-handle"
             size="small"

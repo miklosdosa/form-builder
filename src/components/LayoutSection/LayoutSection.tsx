@@ -1,21 +1,16 @@
 import { LayoutForm } from "./LayoutForm";
 import { FieldBlockFormProvider, Title } from "../../shared/components";
 import { Stack } from "@mui/material";
-import { useFields } from "../../shared/hooks";
-import { useBoundStore } from "../../store/formEditorStore";
+import { useStoreFields } from "../../shared/hooks";
 
 const LayoutSection = () => {
-  const selectedStep = useBoundStore((state) => state.selectedStep);
-  const fields = useBoundStore((state) => state.definitions);
-  const validation = useBoundStore((state) => state.validation);
-  const display = useBoundStore((state) => state.display);
-  console.log(fields, fields[selectedStep]);
-  const { defaultValues, formDefinition, validationSchema, displayRules } =
-    useFields({
-      definition: fields[selectedStep],
-      rules: validation,
-      displayRules: display,
-    });
+  const {
+    defaultValues,
+    fields,
+    validationSchema,
+    displayRules,
+    layoutDefinition,
+  } = useStoreFields();
 
   return (
     <Stack>
@@ -24,7 +19,11 @@ const LayoutSection = () => {
         defaultValues={defaultValues}
         validationSchema={validationSchema}
       >
-        <LayoutForm fields={formDefinition} displayRules={displayRules} />
+        <LayoutForm
+          fields={fields}
+          displayRules={displayRules}
+          layoutDefinition={layoutDefinition}
+        />
       </FieldBlockFormProvider>
     </Stack>
   );

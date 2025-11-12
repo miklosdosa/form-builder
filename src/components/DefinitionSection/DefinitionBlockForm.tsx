@@ -27,7 +27,6 @@ type DefinitionBlockEditFormProps<T> = {
   onSaveData: (data: T) => {
     errors: DefinitionError[];
   };
-  updateFormDefinition: (data: FieldBlockDefinitionArray) => void;
 };
 
 const DefinitionBlockForm = <T extends FieldValues>({
