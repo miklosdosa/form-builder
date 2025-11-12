@@ -1,7 +1,8 @@
-type EventName = "onLeaveForm" | "other";
+type EventName = "onLeaveForm" | "onStepSubmit" | "other";
 
 interface EventDetailMap {
   onLeaveForm: ConfirmEventDetail;
+  onStepSubmit: ConfirmEventDetail;
   other: {
     other: string;
   };

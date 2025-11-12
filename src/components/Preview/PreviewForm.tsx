@@ -2,13 +2,13 @@ import { FieldErrors, FieldValues, useFormContext } from "react-hook-form";
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Button } from "../../shared/components/Button";
 import { Stack } from "@mui/material";
-// import hash from "object-hash";
 import { DisplayRules, FieldBlockDefinitionArray } from "../../shared/types";
 import {
   FieldBlockItem,
   GridRenderer,
 } from "../../shared/components/GridRenderer";
 import { useBoundStore } from "../../store/formEditorStore";
+import { publish } from "../../events";
 
 type PreviewFormProps = {
   fields: FieldBlockDefinitionArray;
@@ -25,7 +25,7 @@ const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {
   const { handleSubmit } = methods;
 
   const handleValid = (data: unknown) => {
-    alert(JSON.stringify(data));
+    publish("onStepSubmit", { proceed: () => alert(JSON.stringify(data)) });
   };
 
   const handleInvalid = (data: FieldErrors<FieldValues>) => {
@@ -37,9 +37,7 @@ const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {
   };
 
   return (
-    <form
-      /* key={formKey} */ onSubmit={handleSubmit(handleValid, handleInvalid)}
-    >
+    <form onSubmit={handleSubmit(handleValid, handleInvalid)}>
       <Stack direction="column" spacing={2}>
         {layoutDefinition !== undefined ? (
           <GridRenderer

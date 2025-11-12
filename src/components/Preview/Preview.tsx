@@ -1,27 +1,23 @@
 import { PreviewForm } from "./PreviewForm";
 import { FieldBlockFormProvider } from "../../shared/components";
-import { useFields } from "../../shared/hooks";
-import { useBoundStore } from "../../store/formEditorStore";
+import { useStoreFields } from "../../shared/hooks";
+import { PreviewFormSteps } from "./PreviewFormSteps";
+import { Stack } from "@mui/material";
 
 const Preview = () => {
-  const selectedStep = useBoundStore((state) => state.selectedStep);
-  const fields = useBoundStore((state) => state.definitions);
-  const validation = useBoundStore((state) => state.validation);
-  const display = useBoundStore((state) => state.display);
-  const { defaultValues, formDefinition, validationSchema, displayRules } =
-    useFields({
-      definition: fields[selectedStep],
-      rules: validation,
-      displayRules: display,
-    });
+  const { defaultValues, fields, validationSchema, displayRules } =
+    useStoreFields();
 
   return (
-    <FieldBlockFormProvider
-      defaultValues={defaultValues}
-      validationSchema={validationSchema}
-    >
-      <PreviewForm fields={formDefinition} displayRules={displayRules} />
-    </FieldBlockFormProvider>
+    <Stack spacing={4}>
+      <PreviewFormSteps />
+      <FieldBlockFormProvider
+        defaultValues={defaultValues}
+        validationSchema={validationSchema}
+      >
+        <PreviewForm fields={fields} displayRules={displayRules} />
+      </FieldBlockFormProvider>
+    </Stack>
   );
 };
 
