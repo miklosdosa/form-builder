@@ -2,7 +2,7 @@ import { FieldBlock } from "..";
 import { FieldBlockDefinitionArray } from "../../../types";
 import { memo, useCallback } from "react";
 import { Stack } from "@mui/material";
-import { IconButton } from "../../IconButton";
+import { IconButton } from "@repo/ui";
 
 type RowProps = {
   index: number;

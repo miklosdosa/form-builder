@@ -1,4 +1,4 @@
-import { IconButton } from "../../shared/components/IconButton";
+import { IconButton } from "@repo/ui";
 import { useBoundStore } from "../../store/formEditorStore";
 
 const AddStep = () => {

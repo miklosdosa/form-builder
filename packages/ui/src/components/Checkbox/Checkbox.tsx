@@ -1,18 +1,16 @@
 import { forwardRef, InputHTMLAttributes } from "react";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox as MuiCheckbox, FormControlLabel } from "@mui/material";
 
-type CheckboxFieldProps = {
-  label?: string;
-};
+type CheckboxFieldProps = { label?: string };
 
-const CheckboxField = forwardRef<
+const Checkbox = forwardRef<
   HTMLInputElement,
   InputHTMLAttributes<HTMLInputElement> & CheckboxFieldProps
 >(({ label = "", ...rest }, ref) => {
   return (
     <FormControlLabel
       control={
-        <Checkbox
+        <MuiCheckbox
           checked={!!rest.checked}
           slotProps={{ input: { ...rest, ref } }}
         />
@@ -22,4 +20,4 @@ const CheckboxField = forwardRef<
   );
 });
 
-export { CheckboxField };
+export { Checkbox };

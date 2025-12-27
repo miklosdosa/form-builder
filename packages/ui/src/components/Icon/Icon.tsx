@@ -1,6 +1,6 @@
 import React from "react";
 import { MouseEventHandler } from "react";
-import * as iconAssets from "../../../assets/icons";
+import * as iconAssets from "../../assets/icons";
 import { SvgIcon, SxProps, Theme } from "@mui/material";
 import { ThemeColors } from "../../types";
 

@@ -1,7 +1,7 @@
 import { AppBar, Toolbar } from "@mui/material";
-import { IconButton } from "../../shared/components/IconButton";
 import { useDialog } from "../../shared/hooks/useDialog";
 import { Preview } from "../Preview/Preview";
+import { IconButton } from "@repo/ui";
 
 const MainAppBar = () => {
   const { confirm } = useDialog();

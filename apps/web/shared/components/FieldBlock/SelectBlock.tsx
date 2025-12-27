@@ -1,9 +1,9 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { RadioField, SelectField } from "../Fields";
 import { SelectBlockProps } from "./FieldBlock.types";
 import { FieldGroup } from "../FieldGroup";
 import { CheckboxGroupBlock } from "./CheckboxGroupBlock";
 import { stringEvaluate } from "./helpers";
+import { Radio, Select } from "@repo/ui";
 
 const SelectBlock = ({ definition, displayRules }: SelectBlockProps) => {
   const { control, watch } = useFormContext();
@@ -35,7 +35,7 @@ const SelectBlock = ({ definition, displayRules }: SelectBlockProps) => {
               name={definition.name}
               control={control}
               render={({ field }) => (
-                <RadioField
+                <Radio
                   label={option.label}
                   {...field}
                   value={option.value}
@@ -54,7 +54,7 @@ const SelectBlock = ({ definition, displayRules }: SelectBlockProps) => {
           name={definition.name}
           control={control}
           render={({ field }) => (
-            <SelectField
+            <Select
               label={definition.label}
               options={options}
               multiple={definition.type === "multi-select"}

@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { FieldGroup } from "../FieldGroup";
-import { CheckboxField } from "../Fields";
+import { Checkbox } from "@repo/ui";
 
 const CheckboxGroupBlock = ({ definition, options }: any) => {
   const { control } = useFormContext();
@@ -22,7 +22,7 @@ const CheckboxGroupBlock = ({ definition, options }: any) => {
           return (
             <>
               {options.map((option: any) => (
-                <CheckboxField
+                <Checkbox
                   key={option.id}
                   label={option.label}
                   {...field}

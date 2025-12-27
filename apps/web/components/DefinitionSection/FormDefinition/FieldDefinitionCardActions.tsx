@@ -1,12 +1,10 @@
 import { useCallback } from "react";
 import { Stack } from "@mui/material";
-import { IconButton } from "../../../shared/components/IconButton";
 import { useBoundStore } from "../../../store/formEditorStore";
 import { publish } from "../../../events";
+import { IconButton } from "@repo/ui";
 
-type FieldDefinitionCardActionProps = {
-  definitionId: string;
-};
+type FieldDefinitionCardActionProps = { definitionId: string };
 
 const FieldDefinitionCardActions = ({
   definitionId,

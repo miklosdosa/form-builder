@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { getObjectValue } from "../../../utils";
 import { memo } from "react";
-import { TextField } from "../Fields";
 import { TextFieldBlockProps } from "./FieldBlock.types";
 import { booleanEvaluate } from "./helpers";
+import { TextField } from "@repo/ui";
 
 const TextFieldBlock = memo(
   ({ name, definition, displayRules }: TextFieldBlockProps) => {
@@ -30,9 +30,7 @@ const TextFieldBlock = memo(
         defaultValue={defaultValue}
         helperText={error?.message as string}
         error={!!error?.message}
-        {...register(name ?? definitionName, {
-          disabled,
-        })}
+        {...register(name ?? definitionName, { disabled })}
       />
     );
   }

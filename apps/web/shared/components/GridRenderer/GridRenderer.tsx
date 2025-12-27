@@ -3,7 +3,7 @@ import "react-grid-layout/css/styles.css";
 import { ComponentType } from "react";
 import { LayoutDefinition } from "../../types";
 import { Box, Grid } from "@mui/material";
-import { IconButton } from "../IconButton";
+import { IconButton } from "@repo/ui";
 
 const ReactGridLayout = WidthProvider(RGL);
 

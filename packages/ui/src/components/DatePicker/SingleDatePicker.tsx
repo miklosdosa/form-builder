@@ -5,7 +5,7 @@ import { hu } from "date-fns/locale/hu";
 import { useEffect, useState } from "react";
 import { PickerProps } from "./types";
 import { Wrapper } from "./Wrapper";
-import { Icon } from "../../Icon";
+import { Icon } from "../Icon";
 
 interface SimpleDateProps extends PickerProps {
   name?: string;
@@ -14,7 +14,7 @@ interface SimpleDateProps extends PickerProps {
   disabled?: boolean;
 }
 
-const SimpleDate = ({
+const SingleDatePicker = ({
   onChange,
   name,
   defaultValue,
@@ -59,7 +59,7 @@ const SimpleDate = ({
             }}
           />
         }
-        onChange={(update) => {
+        onChange={(update: Date | null) => {
           onChange(update);
           setSelectedDate(update);
         }}
@@ -70,4 +70,4 @@ const SimpleDate = ({
   );
 };
 
-export { SimpleDate };
+export { SingleDatePicker };

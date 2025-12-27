@@ -2,7 +2,7 @@ import { Menu, Stack } from "@mui/material";
 import { AddDefinitionItem } from "./AddDefinitionItem";
 import { addConfig } from "./config";
 import { useState } from "react";
-import { IconButton } from "../../../shared/components/IconButton";
+import { IconButton } from "@repo/ui";
 
 const AddDefinition = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

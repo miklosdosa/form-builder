@@ -1,11 +1,9 @@
 import { forwardRef, InputHTMLAttributes } from "react";
 import { InputLabel } from "../InputLabel";
 
-type RadioFieldProps = {
-  label?: string;
-};
+type RadioFieldProps = { label?: string };
 
-const RadioField = forwardRef<
+const Radio = forwardRef<
   HTMLInputElement,
   InputHTMLAttributes<HTMLInputElement> & RadioFieldProps
 >(({ label = "", ...rest }, ref) => {
@@ -17,4 +15,4 @@ const RadioField = forwardRef<
   );
 });
 
-export { RadioField };
+export { Radio };

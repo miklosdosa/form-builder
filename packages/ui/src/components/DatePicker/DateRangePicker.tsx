@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { hu } from "date-fns/locale/hu";
 import { PickerProps } from "./types";
 import { Wrapper } from "./Wrapper";
-import { Icon } from "../../Icon";
+import { Icon } from "../Icon";
 
 interface DateRangeProps extends PickerProps {
   onChange: (date: (Date | null)[]) => void;
@@ -22,7 +22,7 @@ const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
   event.preventDefault();
 };
 
-const DateRange = ({
+const DateRangePicker = ({
   onChange,
   defaultValue,
   isClearable,
@@ -68,7 +68,7 @@ const DateRange = ({
           locale="hu-HU"
           showPopperArrow={false}
           selected={startDate}
-          onChange={(date) => handleRangeChange([date, endDate])}
+          onChange={(date: Date | null) => handleRangeChange([date, endDate])}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -104,7 +104,7 @@ const DateRange = ({
           locale="hu-HU"
           showPopperArrow={false}
           selected={endDate}
-          onChange={(date) => handleRangeChange([startDate, date])}
+          onChange={(date: Date | null) => handleRangeChange([startDate, date])}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
@@ -143,4 +143,4 @@ const DateRange = ({
   );
 };
 
-export { DateRange };
+export { DateRangePicker };

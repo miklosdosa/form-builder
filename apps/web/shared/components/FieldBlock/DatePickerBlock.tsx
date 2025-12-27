@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { getObjectValue } from "../../../utils";
 import { memo } from "react";
 import { DatePickerBlockProps } from "./FieldBlock.types";
-import { SimpleDate } from "../Fields/DatePicker";
+import { SingleDatePicker } from "@repo/ui";
 
 const DatePickerBlock = memo(({ name, definition }: DatePickerBlockProps) => {
   const { control, formState } = useFormContext();
@@ -29,7 +29,7 @@ const DatePickerBlock = memo(({ name, definition }: DatePickerBlockProps) => {
         };
 
         return (
-          <SimpleDate
+          <SingleDatePicker
             onChange={handleChange}
             defaultValue={defaultValue}
             inputProps={{

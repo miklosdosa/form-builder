@@ -1,6 +1,5 @@
 "use client";
 import {
-  Button,
   Dialog as MuiDialog,
   DialogActions,
   DialogContent,
@@ -9,6 +8,7 @@ import {
 } from "@mui/material";
 import { useCallback, useRef, useState } from "react";
 import { Dialog, DialogData } from "../../hooks/useDialog";
+import { Button } from "@repo/ui";
 
 const DialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<DialogData & { isOpen: boolean }>({

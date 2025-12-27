@@ -1,10 +1,8 @@
 import { PropsWithChildren } from "react";
-import { InputLabel } from "../InputLabel";
 import { Stack } from "@mui/material";
+import { InputLabel } from "@repo/ui";
 
-type FieldGroupProps = {
-  label?: string;
-};
+type FieldGroupProps = { label?: string };
 
 const FieldGroup = ({
   label,

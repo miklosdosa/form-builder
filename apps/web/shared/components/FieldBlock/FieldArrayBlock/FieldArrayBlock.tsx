@@ -1,12 +1,11 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { InputLabel } from "../../InputLabel";
 import { useCallback } from "react";
 import { FieldArrayProps } from "../FieldBlock.types";
 import { Paper, Stack } from "@mui/material";
-import { IconButton } from "../../IconButton";
 import { stringEvaluate } from "../helpers";
 import { Row } from "./Row";
 import { ArrayItems } from "./ArrayItems";
+import { IconButton, InputLabel } from "@repo/ui";
 
 const FieldArrayBlock = ({
   definition,

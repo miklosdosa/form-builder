@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { Stepper } from "../../shared/components/Stepper";
 import { useBoundStore } from "../../store/formEditorStore";
 import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
+import { Stepper } from "@repo/ui";
 
 const PreviewFormSteps = () => {
   const steps = useBoundStore((state) => state.steps);
