@@ -1,14 +1,20 @@
 import { FieldBlockDefinition } from "../../../shared/types";
-import { TabDisplay } from "../../../shared/components/TabDisplay";
 import { EditBasicData } from "./EditBasicData";
 import { EditValidationDataContainer } from "./EditValidationDataContainer";
 import { EditDisplayRulesData } from "./EditDisplayRulesData";
+import { publish } from "../../../events";
+import { TabDisplay } from "@repo/ui";
 
-type EditFieldDefinitionProps = {
-  definition: FieldBlockDefinition;
-};
+type EditFieldDefinitionProps = { definition: FieldBlockDefinition };
 
 const EditFieldDefinition = ({ definition }: EditFieldDefinitionProps) => {
+  const shouldTabChange = (): Promise<boolean> =>
+    new Promise((resolve, reject) => {
+      publish("onLeaveForm", {
+        proceed: () => resolve(true),
+        cancel: () => reject(false),
+      });
+    });
   return (
     <TabDisplay
       tabs={[
@@ -28,7 +34,7 @@ const EditFieldDefinition = ({ definition }: EditFieldDefinitionProps) => {
           panel: <EditDisplayRulesData definition={definition} />,
         },
       ]}
-      tabChangeEvent="onLeaveForm"
+      shouldTabChange={shouldTabChange}
     />
   );
 };

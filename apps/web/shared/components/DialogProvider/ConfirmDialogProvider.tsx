@@ -64,9 +64,8 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
           <Button
             onClick={() => fn.current?.(state.closeAction)}
             variant="outlined"
-          >
-            {state.closeButton}
-          </Button>
+            label={state.closeButton}
+          />
           {state.actions && (
             <Stack direction="row" spacing={1}>
               {state.actions.map((a, i) => {
@@ -75,9 +74,8 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
                     key={i}
                     onClick={() => fn.current?.(a.cb)}
                     variant="contained"
-                  >
-                    {a.buttonLabel}
-                  </Button>
+                    label={a.buttonLabel}
+                  />
                 );
               })}
             </Stack>

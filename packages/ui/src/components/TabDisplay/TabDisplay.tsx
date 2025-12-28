@@ -11,7 +11,6 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { SxProps, Theme } from "@mui/material";
-import { EventName, publish } from "../../../events";
 
 interface TabPanelProps {
   id?: string;
@@ -53,30 +52,30 @@ interface TabDisplayProps {
     panelSx?: SxProps<Theme>;
     tabHeightOffset?: number;
   }[];
-  tabChangeEvent?: EventName;
+  shouldTabChange?: () => Promise<boolean>
 }
 
-const TabDisplay = memo(({ tabs, tabChangeEvent }: TabDisplayProps) => {
+const TabDisplay = memo(({ tabs, shouldTabChange }: TabDisplayProps) => {
   const [value, setValue] = useState(0);
   const [tabsHeight, setTabsHeight] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (tabsRef.current) {
       setTabsHeight(tabsRef.current.clientHeight);
     }
-  }, [tabsRef.current?.clientHeight]);
+  }, [tabsRef.current?.clientHeight]); */
 
   const handleChange = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (_: any, newValue: number) => {
-      if (tabChangeEvent) {
-        publish(tabChangeEvent, { proceed: () => setValue(newValue) });
+      if (shouldTabChange) {
+        shouldTabChange().then(() => setValue(newValue))
       } else {
         setValue(newValue);
       }
     },
-    [tabChangeEvent]
+    [shouldTabChange]
   );
 
   const tabsToDisplay = useMemo(

@@ -7,4 +7,5 @@ export * from "./InputLabel";
 export * from "./Radio";
 export * from "./Select";
 export * from "./Stepper";
+export * from "./TabDisplay";
 export * from "./TextField";
