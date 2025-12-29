@@ -7,15 +7,15 @@ import {
   act,
 } from "@testing-library/react";
 import React from "react";
-import { DialogProvider } from "./ConfirmDialogProvider";
-import { Dialog } from "../../hooks/useDialog"; // ugyanaz a context, mint amit a DialogProvider exportál
+import { ActionDialogProvider } from "./ActionDialogProvider";
+import { DialogContext } from "./context";
 
 // Dummy komponens, ami használja a Dialog contextet
 const TestComponent = () => {
-  const dialog = React.useContext(Dialog);
+  const dialog = React.useContext(DialogContext);
 
   const handleOpenDialog = () => {
-    dialog.confirm({
+    dialog.open({
       title: "Test Title",
       content: "Test Content",
       closeButton: "Close",
@@ -34,9 +34,9 @@ const TestComponent = () => {
 describe("ConfirmDialogProvider", () => {
   it("should not render dialog by default", () => {
     render(
-      <DialogProvider>
+      <ActionDialogProvider>
         <TestComponent />
-      </DialogProvider>
+      </ActionDialogProvider>
     );
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -44,9 +44,9 @@ describe("ConfirmDialogProvider", () => {
 
   it("should open dialog with correct content when confirm is called", async () => {
     render(
-      <DialogProvider>
+      <ActionDialogProvider>
         <TestComponent />
-      </DialogProvider>
+      </ActionDialogProvider>
     );
 
     fireEvent.click(screen.getByText("Open Dialog"));
@@ -61,10 +61,10 @@ describe("ConfirmDialogProvider", () => {
 
   it("should call action callback and close dialog", async () => {
     const TestComponentWithCallback = () => {
-      const dialog = React.useContext(Dialog);
+      const dialog = React.useContext(DialogContext);
 
       const handleOpenDialog = () => {
-        dialog.confirm({
+        dialog.open({
           title: "Confirm Title",
           content: "Confirm Content",
           closeButton: "Cancel",
@@ -81,9 +81,9 @@ describe("ConfirmDialogProvider", () => {
     };
 
     render(
-      <DialogProvider>
+      <ActionDialogProvider>
         <TestComponentWithCallback />
-      </DialogProvider>
+      </ActionDialogProvider>
     );
 
     fireEvent.click(screen.getByText("Trigger Confirm"));
@@ -103,10 +103,10 @@ describe("ConfirmDialogProvider", () => {
     // const closeAction = vi.fn();
 
     const CloseDialogComponent = () => {
-      const dialog = React.useContext(Dialog);
+      const dialog = React.useContext(DialogContext);
 
       const handleOpenDialog = () => {
-        dialog.confirm({
+        dialog.open({
           title: "Close Title",
           content: "Close Content",
           closeButton: "Close It",
@@ -119,9 +119,9 @@ describe("ConfirmDialogProvider", () => {
     };
 
     render(
-      <DialogProvider>
+      <ActionDialogProvider>
         <CloseDialogComponent />
-      </DialogProvider>
+      </ActionDialogProvider>
     );
 
     fireEvent.click(screen.getByText("Open Close Dialog"));
@@ -146,11 +146,11 @@ describe("ConfirmDialogProvider", () => {
     let terminateFn: () => void;
 
     const TerminateDialogComponent = () => {
-      const dialog = React.useContext(Dialog);
+      const dialog = React.useContext(DialogContext);
       terminateFn = dialog.terminate;
 
       const handleOpenDialog = () => {
-        dialog.confirm({
+        dialog.open({
           title: "Terminate Title",
           content: "Terminate Content",
           closeButton: "Close",
@@ -162,9 +162,9 @@ describe("ConfirmDialogProvider", () => {
     };
 
     render(
-      <DialogProvider>
+      <ActionDialogProvider>
         <TerminateDialogComponent />
-      </DialogProvider>
+      </ActionDialogProvider>
     );
 
     fireEvent.click(screen.getByText("Open Terminate Dialog"));

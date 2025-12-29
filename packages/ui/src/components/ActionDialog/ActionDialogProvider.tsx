@@ -1,16 +1,17 @@
 "use client";
 import {
-  Dialog as MuiDialog,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Stack,
 } from "@mui/material";
 import { useCallback, useRef, useState } from "react";
-import { Dialog, DialogData } from "../../hooks/useDialog";
-import { Button } from "@repo/ui";
+import { DialogContext } from "./context";
+import { Button } from "../Button";
+import { DialogData } from "./types";
 
-const DialogProvider = ({ children }: { children: React.ReactNode }) => {
+const ActionDialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<DialogData & { isOpen: boolean }>({
     isOpen: false,
     fullScreen: false,
@@ -21,7 +22,7 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
   });
   const fn = useRef<(cb?: () => void) => void>();
 
-  const confirm = useCallback(
+  const open = useCallback(
     (data: DialogData) => {
       return new Promise<void>((resolve) => {
         setState({ ...data, isOpen: true });
@@ -40,9 +41,9 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <Dialog.Provider value={{ confirm, terminate }}>
+    <DialogContext.Provider value={{ open, terminate }}>
       {children}
-      <MuiDialog
+      <Dialog
         id="confirm-dialog"
         maxWidth="md"
         fullScreen={state.fullScreen}
@@ -81,9 +82,9 @@ const DialogProvider = ({ children }: { children: React.ReactNode }) => {
             </Stack>
           )}
         </DialogActions>
-      </MuiDialog>
-    </Dialog.Provider>
+      </Dialog>
+    </DialogContext.Provider>
   );
 };
 
-export { DialogProvider };
+export { ActionDialogProvider };

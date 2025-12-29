@@ -5,7 +5,7 @@ import {
   LayoutDefinition,
 } from "../../shared/types";
 import { FieldBlock } from "../../shared/components/FieldBlock";
-import {Button} from "@repo/ui"
+import {Button, useDialog} from "@repo/ui"
 import {
   /* updateSelectRenderOptions, */
   useSetFormErrors,
@@ -13,7 +13,6 @@ import {
 import { Stack } from "@mui/material";
 import { useCallback, useEffect } from "react";
 import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
-import { useDialog } from "../../shared/hooks/useDialog";
 import { DefinitionError } from "../../store/formEditorStore.types";
 import {
   FieldBlockItem,
@@ -35,7 +34,7 @@ const DefinitionBlockForm = <T extends FieldValues>({
   displayRules,
   layoutDefinition,
 }: DefinitionBlockEditFormProps<T>) => {
-  const { confirm } = useDialog();
+  const { open } = useDialog();
   const { handleSubmit, formState } = useFormContext<T>();
 
   const { isDirty } = formState;
@@ -67,7 +66,7 @@ const DefinitionBlockForm = <T extends FieldValues>({
         proceed?.();
         return;
       }
-      await confirm({
+      await open({
         closeButton: "Cancel",
         title: "Unsaved data",
         content: "There are some unsaved data",
@@ -90,7 +89,7 @@ const DefinitionBlockForm = <T extends FieldValues>({
         ],
       });
     },
-    [confirm, handleSubmit, handleValid, isDirty]
+    [open, handleSubmit, handleValid, isDirty]
   );
 
   useEffect(() => {

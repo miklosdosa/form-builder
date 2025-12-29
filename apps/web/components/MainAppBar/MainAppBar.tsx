@@ -1,10 +1,9 @@
 import { AppBar, Toolbar } from "@mui/material";
-import { useDialog } from "../../shared/hooks/useDialog";
 import { Preview } from "../Preview/Preview";
-import { IconButton } from "@repo/ui";
+import { IconButton, useDialog } from "@repo/ui";
 
 const MainAppBar = () => {
-  const { confirm } = useDialog();
+  const { open } = useDialog();
   return (
     <AppBar position="sticky">
       <Toolbar variant="dense">
@@ -12,7 +11,7 @@ const MainAppBar = () => {
           tooltipTitle="Preview"
           iconName="Launch"
           onClick={() =>
-            confirm({
+            open({
               title: "Preview",
               content: Preview,
               fullScreen: true,

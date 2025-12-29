@@ -5,12 +5,12 @@ import { DefinitionSection } from "../components/DefinitionSection";
 import { FormStepsSection } from "../components/FormStepsSection";
 import { LayoutSection } from "../components/LayoutSection";
 import { MainAppBar } from "../components/MainAppBar";
-import { DialogProvider } from "../shared/components/DialogProvider/ConfirmDialogProvider";
+import { ActionDialogProvider } from "@repo/ui";
 
 export default function App() {
   return (
     <SnackbarProvider>
-      <DialogProvider>
+      <ActionDialogProvider>
         <MainAppBar />
         <Stack spacing={2}>
           <Box pt={2}>
@@ -26,7 +26,7 @@ export default function App() {
             </Box>
           </Stack>
         </Stack>
-      </DialogProvider>
+      </ActionDialogProvider>
     </SnackbarProvider>
   );
 }

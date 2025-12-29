@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { useDialog, Dialog } from "./useDialog";
-import { vi } from "vitest";
+import { useDialog} from "./hooks";
+import { DialogContext } from "./context";
 
 describe("useDialog", () => {
   /* it("should return default context values when no provider is used", () => {
@@ -20,11 +20,11 @@ describe("useDialog", () => {
     const mockTerminate = vi.fn();
 
     const wrapper = ({ children }: any) => (
-      <Dialog.Provider
-        value={{ confirm: mockConfirm, terminate: mockTerminate }}
+      <DialogContext.Provider
+        value={{ open: mockConfirm, terminate: mockTerminate }}
       >
         {children}
-      </Dialog.Provider>
+      </DialogContext.Provider>
     );
 
     const { result } = renderHook(() => useDialog(), { wrapper });
