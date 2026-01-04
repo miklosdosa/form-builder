@@ -8,10 +8,7 @@ type SelectFieldTypes = "checkbox" | "multi-select" | "radio" | "select";
 
 type ValidationRuleType = "required";
 
-type ValidationRule = {
-  type: ValidationRuleType;
-  errorMessage?: string;
-};
+type ValidationRule = { type: ValidationRuleType; errorMessage?: string };
 
 type LayoutDefinition = {
   i: string;
@@ -66,11 +63,7 @@ type FieldDefinition<T = string> = {
   placeholder?: string;
 };
 
-type OptionDefinition = {
-  id: string;
-  value: string;
-  label: string;
-};
+type OptionDefinition = { id: string; value: string; label: string };
 
 type FieldArrayDefinition<T = string> = {
   fields: FieldBlockDefinitionArray<T>;
@@ -110,32 +103,6 @@ type FormDefinitionSteps = Record<string, FieldBlockDefinitionArray>;
 
 type FormDefinitionLayouts = Record<string, LayoutDefinition>;
 
-type ThemeColors =
-  | "disabled"
-  | "action"
-  | "inherit"
-  | "success"
-  | "warning"
-  | "info"
-  | "error"
-  | "primary"
-  | "secondary";
-
-type Placement =
-  | "bottom-end"
-  | "bottom-start"
-  | "bottom"
-  | "left-end"
-  | "left-start"
-  | "left"
-  | "right-end"
-  | "right-start"
-  | "right"
-  | "top-end"
-  | "top-start"
-  | "top"
-  | undefined;
-
 type ConditionOperator = "eq" | "neq" | "lt" | "gt" | "lte" | "gte";
 
 type FormValueCondition = {
@@ -144,34 +111,17 @@ type FormValueCondition = {
   value: string | number | boolean;
 };
 
-type FieldDisplayRulesCommon = {
-  conditions: boolean | FormValueCondition[][];
-};
+type FieldDisplayRulesCommon = { conditions: boolean | FormValueCondition[][] };
 
-type TextFieldDisplayRules = {
-  type: "disabled" | "readOnly";
-  value: boolean;
-};
+type TextFieldDisplayRules = { type: "disabled" | "readOnly"; value: boolean };
 
 type SelectFiledDisplayRules =
-  | {
-      type: "disabled" | "readonly";
-      value: boolean;
-    }
-  | {
-      type: "optionSet";
-      value: string;
-    };
+  | { type: "disabled" | "readonly"; value: boolean }
+  | { type: "optionSet"; value: string };
 
 type FieldArrayDisplayRules =
-  | {
-      type: "disabled" | "readOnly";
-      value: boolean;
-    }
-  | {
-      type: "arrayDirection";
-      value: "column" | "row";
-    };
+  | { type: "disabled" | "readOnly"; value: boolean }
+  | { type: "arrayDirection"; value: "column" | "row" };
 
 type FieldDisplayRules = FieldDisplayRulesCommon &
   (TextFieldDisplayRules | SelectFiledDisplayRules | FieldArrayDisplayRules);
@@ -188,8 +138,6 @@ export type {
   FieldArrayDefinition,
   BooleanDefinition,
   OptionDefinition,
-  ThemeColors,
-  Placement,
   SelectFieldTypes,
   ValidationRule,
   DisplayRules,

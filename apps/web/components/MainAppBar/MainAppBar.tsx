@@ -1,24 +1,17 @@
-import { AppBar, Toolbar } from "@mui/material";
-import { Preview } from "../Preview/Preview";
-import { IconButton, useDialog } from "@repo/ui";
+import { AppBar, Box, Toolbar } from "@mui/material";
+import { AccountMenu } from "./AccountMenu";
+import { Preview } from "./Preview";
 
 const MainAppBar = () => {
-  const { open } = useDialog();
   return (
     <AppBar position="sticky">
-      <Toolbar variant="dense">
-        <IconButton
-          tooltipTitle="Preview"
-          iconName="Launch"
-          onClick={() =>
-            open({
-              title: "Preview",
-              content: Preview,
-              fullScreen: true,
-              closeButton: "Close",
-            })
-          }
-        />
+      <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
+        <Box>
+          <Preview />
+        </Box>
+        <Box>
+          <AccountMenu />
+        </Box>
       </Toolbar>
     </AppBar>
   );
