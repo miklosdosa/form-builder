@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import keycloak from "../lib/keycloak";
+import { FullPageLoader } from "@repo/ui";
 
 export default function KeycloakProvider({
   children,
@@ -16,7 +17,7 @@ export default function KeycloakProvider({
       .then(() => setReady(true));
   }, []);
 
-  if (!ready) return <p>Bejelentkezés...</p>;
+  if (!ready) return <FullPageLoader />;
 
   return <>{children}</>;
 }

@@ -2,6 +2,7 @@ export * from "./ActionDialog";
 export * from "./Button";
 export * from "./Checkbox";
 export * from "./DatePicker";
+export * from "./FullPageLoader";
 export * from "./Icon";
 export * from "./IconButton";
 export * from "./InputLabel";
