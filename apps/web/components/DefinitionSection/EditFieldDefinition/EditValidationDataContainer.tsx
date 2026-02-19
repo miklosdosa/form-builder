@@ -1,7 +1,7 @@
 import { FieldDefinition } from "../../../shared/types";
 import { useBoundStore } from "../../../store/formEditorStore";
 import { EditValidationData } from "./EditValidationData";
-import { formValidationFormDefinitions } from "../DefinitionBlockForm.config";
+import { formValidationFormDefinitions } from "../FieldDefinitionEditorForm.config";
 
 type EditValidationDataContainerProps = {
   definition: FieldDefinition;

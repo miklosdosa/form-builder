@@ -5,14 +5,14 @@ import {
   FormDisplayRules,
   FieldDefinition,
 } from "../../../shared/types";
-import { DefinitionBlockForm } from "../DefinitionBlockForm";
+import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
 import {
   formDisplayRulesFormDefinitions,
   /* formDefinitionDisplayRules,
   formDefinitionValidationRules, */
-} from "../DefinitionBlockForm.config";
+} from "../FieldDefinitionEditorForm.config";
 import { useBoundStore } from "../../../store/formEditorStore";
 
 type EditDisplayRulesDataProps = {
@@ -96,7 +96,7 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
       defaultValues={defaultValues}
       validationSchema={validationSchema}
     >
-      <DefinitionBlockForm
+      <FieldDefinitionEditorForm
         formDefinition={formDefinition}
         displayRules={displayRules}
         onSaveData={handleSaveData}

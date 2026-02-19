@@ -5,7 +5,7 @@ import {
   ValidationConfigFormValues,
   ValidationRule,
 } from "../../../shared/types";
-import { DefinitionBlockForm } from "../DefinitionBlockForm";
+import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
 import { Validation } from "../../../store/formEditorStore.types";
@@ -78,7 +78,7 @@ const EditValidationData = ({
       defaultValues={defaultValues}
       validationSchema={validationSchema}
     >
-      <DefinitionBlockForm
+      <FieldDefinitionEditorForm
         formDefinition={formDefinition}
         displayRules={displayRules}
         onSaveData={handleSaveData}

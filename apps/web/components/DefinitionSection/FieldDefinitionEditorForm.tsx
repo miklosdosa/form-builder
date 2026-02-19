@@ -9,7 +9,7 @@ import {Button, useDialog} from "@repo/ui"
 import {
   /* updateSelectRenderOptions, */
   useSetFormErrors,
-} from "./DefinitionBlockForm.helpers";
+} from "./FieldDefinitionEditorForm.helpers";
 import { Stack } from "@mui/material";
 import { useCallback, useEffect } from "react";
 import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
@@ -19,7 +19,7 @@ import {
   GridRenderer,
 } from "../../shared/components/GridRenderer";
 
-type DefinitionBlockEditFormProps<T> = {
+type FieldDefinitionEditorFormProps<T> = {
   formDefinition: FieldDefinitions;
   displayRules?: FormDisplayRules;
   layoutDefinition?: GridLayout;
@@ -28,12 +28,12 @@ type DefinitionBlockEditFormProps<T> = {
   };
 };
 
-const DefinitionBlockForm = <T extends FieldValues>({
+const FieldDefinitionEditorForm = <T extends FieldValues>({
   formDefinition,
   onSaveData,
   displayRules,
   layoutDefinition,
-}: DefinitionBlockEditFormProps<T>) => {
+}: FieldDefinitionEditorFormProps<T>) => {
   const { open } = useDialog();
   const { handleSubmit, formState } = useFormContext<T>();
 
@@ -143,4 +143,4 @@ const DefinitionBlockForm = <T extends FieldValues>({
   );
 };
 
-export { DefinitionBlockForm };
+export { FieldDefinitionEditorForm };

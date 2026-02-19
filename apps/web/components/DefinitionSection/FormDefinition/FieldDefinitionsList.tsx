@@ -2,12 +2,14 @@ import { FieldDefinitionCard } from "./FieldDefinitionCard";
 import { useBoundStore } from "../../../store/formEditorStore";
 import { Stack } from "@mui/material";
 
-const FormDefinitionContainer = () => {
+const FieldDefinitionsList = () => {
   const selectedStep = useBoundStore((state) => state.selectedStep);
-  const formDefinitions = useBoundStore((state) => state.definitions);
+  const definitions = useBoundStore((state) => state.definitions);
+  const fieldDefinitions = definitions[selectedStep] ?? [];
+
   return (
     <Stack direction="column" spacing={2}>
-      {formDefinitions[selectedStep]?.map((fieldDefinition) => (
+      {fieldDefinitions.map((fieldDefinition) => (
         <FieldDefinitionCard
           key={fieldDefinition.id}
           definition={fieldDefinition}
@@ -17,4 +19,4 @@ const FormDefinitionContainer = () => {
   );
 };
 
-export { FormDefinitionContainer };
+export { FieldDefinitionsList };

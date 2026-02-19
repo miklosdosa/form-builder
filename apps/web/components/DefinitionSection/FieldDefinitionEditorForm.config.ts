@@ -351,7 +351,7 @@ const formDefinitionDisplayRules: Record<FieldKind, FormDisplayRules> = {
   DateField: {},
 };
 
-const formDefinitions: Record<FieldKind, FieldDefinitions> = {
+const fieldEditorFormsByKind: Record<FieldKind, FieldDefinitions> = {
   TextField: textFormDefinition,
   SelectField: selectFormDefinition,
   FieldArray: [],
@@ -384,7 +384,7 @@ const formDefinitionLayout: Record<FieldKind, GridLayout> = {
 };
 
 export {
-  formDefinitions,
+  fieldEditorFormsByKind,
   textFormDefinitionValidation,
   formDefinitionValidationRules,
   formDefinitionDisplayRules,
