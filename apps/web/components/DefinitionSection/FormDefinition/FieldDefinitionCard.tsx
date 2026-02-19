@@ -1,9 +1,9 @@
-import { FieldBlockDefinition } from "../../../shared/types";
+import { FieldDefinition } from "../../../shared/types";
 import { Paper } from "@mui/material";
 import { FieldDefinitionCardContent } from "./FieldDefinitionCardContent";
 
 type FieldDefinitionCardProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const FieldDefinitionCard = ({ definition }: FieldDefinitionCardProps) => {

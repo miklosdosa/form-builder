@@ -1,8 +1,8 @@
 import {
-  BooleanDefinition,
-  DateTimeDefinition,
+  BooleanFieldDefinition,
+  DateFieldDefinition,
   FieldArrayDefinition,
-  FieldBlockDefinition,
+  FieldDefinition,
   FieldDisplayRules,
   SelectFieldDefinition,
   TextFieldDefinition,
@@ -15,7 +15,7 @@ type FieldBlockCommonProps = {
 };
 
 type FieldBlockProps = FieldBlockCommonProps & {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 type TextFieldBlockProps = FieldBlockCommonProps & {
@@ -23,7 +23,7 @@ type TextFieldBlockProps = FieldBlockCommonProps & {
 };
 
 type BooleanBlockProps = FieldBlockCommonProps & {
-  definition: BooleanDefinition;
+  definition: BooleanFieldDefinition;
 };
 
 type FieldArrayProps = FieldBlockCommonProps & {
@@ -41,7 +41,7 @@ type CheckboxGroupProps = FieldBlockCommonProps & {
 };
 
 type DatePickerBlockProps = FieldBlockCommonProps & {
-  definition: DateTimeDefinition;
+  definition: DateFieldDefinition;
 };
 
 export type {

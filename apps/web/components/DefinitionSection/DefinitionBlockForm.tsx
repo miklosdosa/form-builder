@@ -1,8 +1,8 @@
 import { FieldValues, useFormContext } from "react-hook-form";
 import {
-  DisplayRules,
-  FieldBlockDefinitionArray,
-  LayoutDefinition,
+  FormDisplayRules,
+  FieldDefinitions,
+  GridLayout,
 } from "../../shared/types";
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import {Button, useDialog} from "@repo/ui"
@@ -20,9 +20,9 @@ import {
 } from "../../shared/components/GridRenderer";
 
 type DefinitionBlockEditFormProps<T> = {
-  formDefinition: FieldBlockDefinitionArray;
-  displayRules?: DisplayRules;
-  layoutDefinition?: LayoutDefinition;
+  formDefinition: FieldDefinitions;
+  displayRules?: FormDisplayRules;
+  layoutDefinition?: GridLayout;
   onSaveData: (data: T) => {
     errors: DefinitionError[];
   };

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { ArrayItems } from "./ArrayItems";
-import { FieldBlockDefinitionArray } from "../../../types";
+import { FieldDefinitions } from "../../../types";
 import { FieldBlockFormProvider } from "../../FieldBlockFormProvider";
 
 describe("ArrayItems", () => {
@@ -18,7 +18,7 @@ describe("ArrayItems", () => {
       },
     ];
 
-    const itemFormDefinition: FieldBlockDefinitionArray = [
+    const itemFormDefinition: FieldDefinitions = [
       {
         id: "1",
         name: "1",

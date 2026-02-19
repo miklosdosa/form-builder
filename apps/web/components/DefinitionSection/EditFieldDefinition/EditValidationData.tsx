@@ -1,8 +1,8 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
 import {
-  FieldBlockDefinitionArray,
-  ValidationDataFormValues,
+  FieldDefinitions,
+  ValidationConfigFormValues,
   ValidationRule,
 } from "../../../shared/types";
 import { DefinitionBlockForm } from "../DefinitionBlockForm";
@@ -11,7 +11,7 @@ import { useFields } from "../../../shared/hooks";
 import { Validation } from "../../../store/formEditorStore.types";
 
 type EditValidationDataProps = {
-  initFormDefinition: FieldBlockDefinitionArray;
+  initFormDefinition: FieldDefinitions;
   fieldBlockName: string;
   update: (payload: Validation) => void;
   initialValues?: ValidationRule[];
@@ -47,7 +47,7 @@ const EditValidationData = ({
     });
 
   const handleSaveData = useCallback(
-    (data: ValidationDataFormValues) => {
+    (data: ValidationConfigFormValues) => {
       let rule: { [x: string]: ValidationRule[] } = {
         [fieldBlockName]: [],
       };

@@ -1,8 +1,8 @@
-import { FieldBlockDefinition } from "../../types";
+import { FieldDefinition } from "../../types";
 import { FieldBlock } from "../FieldBlock";
 
 type FieldBlockItemProps = {
-  item: FieldBlockDefinition;
+  item: FieldDefinition;
 };
 
 const FieldBlockItem = ({ item }: FieldBlockItemProps) => (

@@ -1,7 +1,7 @@
 "use client";
 import {
-  BooleanDefinition,
-  DateTimeDefinition,
+  BooleanFieldDefinition,
+  DateFieldDefinition,
   FieldArrayDefinition,
   SelectFieldDefinition,
   TextFieldDefinition,
@@ -26,7 +26,7 @@ const FieldBlock = memo(
             auxOnChange={auxOnChange}
           />
         );
-      case "Select":
+      case "SelectField":
         return (
           <SelectBlock
             name={name}
@@ -43,19 +43,19 @@ const FieldBlock = memo(
             displayRules={displayRules}
           />
         );
-      case "Boolean":
+      case "BooleanField":
         return (
           <BooleanBlock
             name={name}
-            definition={definition as BooleanDefinition}
+            definition={definition as BooleanFieldDefinition}
             auxOnChange={auxOnChange}
           />
         );
-      case "DateTime":
+      case "DateField":
         return (
           <DatePickerBlock
             name={name}
-            definition={definition as DateTimeDefinition}
+            definition={definition as DateFieldDefinition}
           />
         );
       default:

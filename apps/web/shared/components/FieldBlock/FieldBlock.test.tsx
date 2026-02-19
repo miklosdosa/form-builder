@@ -1,11 +1,11 @@
 import { render } from "@testing-library/react";
 import { FieldBlock } from "./FieldBlock";
-import { FieldBlockDefinition } from "../../types";
+import { FieldDefinition } from "../../types";
 import { FieldBlockFormProvider } from "../FieldBlockFormProvider";
 
 describe("FieldBlock", () => {
   it("should render TextField block", () => {
-    const definition: FieldBlockDefinition = {
+    const definition: FieldDefinition = {
       id: "textField",
       name: "textField",
       definitionType: "TextField",
@@ -19,10 +19,10 @@ describe("FieldBlock", () => {
     );
   });
   it("should render Select block", () => {
-    const definition: FieldBlockDefinition = {
+    const definition: FieldDefinition = {
       id: "selectField",
       name: "selectField",
-      definitionType: "Select",
+      definitionType: "SelectField",
       type: "select",
       multiple: false,
       options: [
@@ -40,10 +40,10 @@ describe("FieldBlock", () => {
     );
   });
   it("should render Boolean block", () => {
-    const definition: FieldBlockDefinition = {
+    const definition: FieldDefinition = {
       id: "bool",
       name: "bool",
-      definitionType: "Boolean",
+      definitionType: "BooleanField",
       type: "boolean",
       option: { id: "opt", label: "opt", value: "opt" },
     };
@@ -55,7 +55,7 @@ describe("FieldBlock", () => {
     );
   });
   it("should render FieldArray block", () => {
-    const definition: FieldBlockDefinition = {
+    const definition: FieldDefinition = {
       id: "fieldArray",
       name: "fieldArray",
       definitionType: "FieldArray",

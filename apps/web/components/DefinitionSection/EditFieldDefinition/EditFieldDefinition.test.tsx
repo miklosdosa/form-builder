@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
 import { EditFieldDefinition } from "./EditFieldDefinition";
-import { FieldBlockDefinition } from "../../../shared/types";
+import { FieldDefinition } from "../../../shared/types";
 
-const definition: FieldBlockDefinition = {
+const definition: FieldDefinition = {
   definitionType: "TextField",
   id: "id",
   name: "name",

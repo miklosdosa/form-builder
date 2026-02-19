@@ -1,12 +1,12 @@
 import { render } from "@testing-library/react";
 import { CheckboxGroupBlock } from "./CheckboxGroupBlock";
 import { FieldBlockFormProvider } from "../FieldBlockFormProvider";
-import { FieldBlockDefinition } from "../../types";
+import { FieldDefinition } from "../../types";
 
 describe("CheckboxGroupBlock", () => {
   it("should render properly", () => {
-    const definition: FieldBlockDefinition = {
-      definitionType: "Select",
+    const definition: FieldDefinition = {
+      definitionType: "SelectField",
       multiple: true,
       id: "checkboxgroup",
       name: "checkboxgroup",

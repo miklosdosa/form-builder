@@ -1,10 +1,10 @@
-import { FieldBlockDefinitionArray } from "../../../types";
+import { FieldDefinitions } from "../../../types";
 import { Row } from "./Row";
 
 type ArrayItemsProps = {
   fields: Record<"id", string>[];
   arrayName: string;
-  itemFormDefinition: FieldBlockDefinitionArray;
+  itemFormDefinition: FieldDefinitions;
   arrayItemRemoveLabel: string;
   arrayItemDirection: any;
   handleItemRemove: (index: number) => void;

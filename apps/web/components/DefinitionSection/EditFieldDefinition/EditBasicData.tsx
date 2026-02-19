@@ -1,8 +1,8 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback } from "react";
 import {
-  BasicDataFormValues,
-  FieldBlockDefinition,
+  FieldConfigFormValues,
+  FieldDefinition,
 } from "../../../shared/types";
 import { useBoundStore } from "../../../store/formEditorStore";
 import { DefinitionBlockForm } from "../DefinitionBlockForm";
@@ -16,7 +16,7 @@ import {
 } from "../DefinitionBlockForm.config";
 
 type EditBasicDataProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const EditBasicData = ({ definition }: EditBasicDataProps) => {
@@ -33,7 +33,7 @@ const EditBasicData = ({ definition }: EditBasicDataProps) => {
   const layoutDefinition = formDefinitionLayout[definitionType];
 
   const handleSaveData = useCallback(
-    (data: BasicDataFormValues) => {
+    (data: FieldConfigFormValues) => {
       console.log(data);
       const result = updateField({ ...data, currentId: definitionId });
       if (result.errors.length === 0) {

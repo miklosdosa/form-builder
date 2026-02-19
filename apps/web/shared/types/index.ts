@@ -1,38 +1,53 @@
-type DefinitionType =
+type FieldKind =
   | "TextField"
-  | "Select"
+  | "SelectField"
   | "FieldArray"
-  | "Boolean"
-  | "DateTime";
+  | "BooleanField"
+  | "DateField";
 type SelectFieldTypes = "checkbox" | "multi-select" | "radio" | "select";
 
 type ValidationRuleType = "required";
 
 type ValidationRule = { type: ValidationRuleType; errorMessage?: string };
 
-type LayoutDefinition = {
+type LayoutItem = {
   i: string;
   x: number;
   y: number;
   w: number;
   h: number;
-}[];
+};
+
+type GridLayout = LayoutItem[];
+
+// Base types
+type OptionDefinition = { id: string; value: string; label: string };
 
 type OptionSet = { name: string; values: OptionDefinition[] };
 
-type DefinitionFormValuesCommon = Pick<
-  FieldDefinition,
+// Base field definition type
+type BaseFieldDefinition<T = string> = {
+  id: string;
+  definitionType: FieldKind;
+  name: T;
+  label?: string;
+  helperText?: string;
+  placeholder?: string;
+};
+
+type FieldConfigFormBase = Pick<
+  BaseFieldDefinition,
   "id" | "name" | "label"
 >;
 
-type TextFieldFormValues = DefinitionFormValuesCommon & {
+type TextFieldFormValues = FieldConfigFormBase & {
   name: string;
   type: "text" | "number" | "email" | "password";
   placeholder?: string;
   defaultValue?: string;
 };
 
-type SelectFieldFormValues = DefinitionFormValuesCommon & {
+type SelectFieldFormValues = FieldConfigFormBase & {
   multiple: boolean;
   options: OptionSet;
   type: "checkbox" | "radio" | "multi-select" | "select";
@@ -48,60 +63,58 @@ type TextFieldDisplayDataFormValues = {
   isReadOnly: boolean;
 };
 
-type ValidationDataFormValues = TextFieldValidationFormValues;
+type ValidationConfigFormValues = TextFieldValidationFormValues;
 
-type BasicDataFormValues = TextFieldFormValues | SelectFieldFormValues;
+type FieldConfigFormValues = TextFieldFormValues | SelectFieldFormValues;
 
-type DisplayDataFormValues = TextFieldDisplayDataFormValues;
-
-type FieldDefinition<T = string> = {
-  id: string;
-  definitionType: DefinitionType;
-  name: T;
-  label?: string;
-  helperText?: string;
-  placeholder?: string;
-};
-
-type OptionDefinition = { id: string; value: string; label: string };
+type DisplayConfigFormValues = TextFieldDisplayDataFormValues;
 
 type FieldArrayDefinition<T = string> = {
-  fields: FieldBlockDefinitionArray<T>;
+  fields: FieldDefinitions<T>;
   type: "array";
-} & FieldDefinition<T>;
+} & BaseFieldDefinition<T>;
 
 type TextFieldDefinition<T = string> = {
   type: "text" | "number" | "email" | "password";
   defaultValue?: string | number;
-} & FieldDefinition<T>;
+} & BaseFieldDefinition<T>;
 
 type SelectFieldDefinition<T = string> = (
   | { multiple: true; type: "checkbox" | "multi-select" }
   | { multiple: false; type: "radio" | "select" }
-) & { options: OptionSet[] } & FieldDefinition<T>;
+) & { options: OptionSet[] } & BaseFieldDefinition<T>;
 
-type BooleanDefinition<T = string> = {
+type BooleanFieldDefinition<T = string> = {
   type: "boolean";
   option: OptionDefinition;
-} & FieldDefinition<T>;
+} & BaseFieldDefinition<T>;
 
-type DateTimeDefinition<T = string> = {
+type DateFieldDefinition<T = string> = {
   type: "date";
   defaultValue?: Date;
-} & FieldDefinition<T>;
+} & BaseFieldDefinition<T>;
 
-type FieldBlockDefinition<T = string> =
+type FieldDefinition<T = string> =
   | TextFieldDefinition<T>
   | SelectFieldDefinition<T>
   | FieldArrayDefinition<T>
-  | BooleanDefinition<T>
-  | DateTimeDefinition<T>;
+  | BooleanFieldDefinition<T>
+  | DateFieldDefinition<T>;
 
-type FieldBlockDefinitionArray<T = string> = FieldBlockDefinition<T>[];
+type FieldDefinitions<T = string> = FieldDefinition<T>[];
 
-type FormDefinitionSteps = Record<string, FieldBlockDefinitionArray>;
+// Helper type to extract field definition by field kind
+type FieldDefinitionOfKind<
+  K extends FieldKind,
+  NameType = string
+> = Extract<FieldDefinition<NameType>, { definitionType: K }>;
 
-type FormDefinitionLayouts = Record<string, LayoutDefinition>;
+// Step ID type for better type safety
+type StepId = string;
+
+type FormStepDefinitions = Record<StepId, FieldDefinitions>;
+
+type FormStepLayouts = Record<StepId, GridLayout>;
 
 type ConditionOperator = "eq" | "neq" | "lt" | "gt" | "lte" | "gte";
 
@@ -111,42 +124,54 @@ type FormValueCondition = {
   value: string | number | boolean;
 };
 
-type FieldDisplayRulesCommon = { conditions: boolean | FormValueCondition[][] };
+type DisplayRuleBase = { conditions: boolean | FormValueCondition[][] };
 
 type TextFieldDisplayRules = { type: "disabled" | "readOnly"; value: boolean };
 
-type SelectFiledDisplayRules =
-  | { type: "disabled" | "readonly"; value: boolean }
+type SelectFieldDisplayRules =
+  | { type: "disabled" | "readOnly"; value: boolean }
   | { type: "optionSet"; value: string };
 
 type FieldArrayDisplayRules =
   | { type: "disabled" | "readOnly"; value: boolean }
   | { type: "arrayDirection"; value: "column" | "row" };
 
-type FieldDisplayRules = FieldDisplayRulesCommon &
-  (TextFieldDisplayRules | SelectFiledDisplayRules | FieldArrayDisplayRules);
+type FieldDisplayRules = DisplayRuleBase &
+  (TextFieldDisplayRules | SelectFieldDisplayRules | FieldArrayDisplayRules);
 
-type DisplayRules = Record<string, FieldDisplayRules[]>;
+type FormDisplayRules = Record<string, FieldDisplayRules[]>;
+
+// Complete form definition type that ties together all related data
+type FormDefinition = {
+  steps: FormStepDefinitions;
+  layouts: FormStepLayouts;
+  validation?: Record<string, ValidationRule[]>;
+  display?: FormDisplayRules;
+};
 
 export type {
-  DefinitionType,
+  FieldKind,
   TextFieldDefinition,
-  FieldBlockDefinition,
+  FieldDefinition,
   SelectFieldDefinition,
-  DateTimeDefinition,
-  FieldBlockDefinitionArray,
+  DateFieldDefinition,
+  FieldDefinitions,
   FieldArrayDefinition,
-  BooleanDefinition,
+  BooleanFieldDefinition,
   OptionDefinition,
   SelectFieldTypes,
   ValidationRule,
-  DisplayRules,
-  BasicDataFormValues,
-  ValidationDataFormValues,
+  FormDisplayRules,
+  FieldConfigFormValues,
+  ValidationConfigFormValues,
   FormValueCondition,
-  DisplayDataFormValues,
+  DisplayConfigFormValues,
   FieldDisplayRules,
-  LayoutDefinition,
-  FormDefinitionSteps,
-  FormDefinitionLayouts,
+  LayoutItem,
+  GridLayout,
+  FormStepDefinitions,
+  FormStepLayouts,
+  FormDefinition,
+  StepId,
+  FieldDefinitionOfKind,
 };

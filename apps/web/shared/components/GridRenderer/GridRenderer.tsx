@@ -1,18 +1,18 @@
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ComponentType } from "react";
-import { LayoutDefinition } from "../../types";
+import { GridLayout } from "../../types";
 import { Box, Grid } from "@mui/material";
 import { IconButton } from "@repo/ui";
 
 const ReactGridLayout = WidthProvider(RGL);
 
 type GridRendererProps<T extends { id: string }, P> = {
-  layoutDefinition: LayoutDefinition;
+  layoutDefinition: GridLayout;
   items: T[];
   ItemComponent: ComponentType<{ item: T } & P>;
   itemComponentProps?: P;
-  onLayoutUpdate?: (layout: LayoutDefinition) => void;
+  onLayoutUpdate?: (layout: GridLayout) => void;
 };
 
 const OrderableGridRenderer = <T extends { id: string }, P = object>({

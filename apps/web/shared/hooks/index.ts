@@ -1,10 +1,10 @@
 import * as yup from "yup";
 import { useMemo } from "react";
 import {
-  DefinitionType,
-  DisplayRules,
-  FieldBlockDefinition,
-  FieldBlockDefinitionArray,
+  FieldKind,
+  FormDisplayRules,
+  FieldDefinition,
+  FieldDefinitions,
   SelectFieldDefinition,
   SelectFieldTypes,
   TextFieldDefinition,
@@ -61,14 +61,14 @@ const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {
 };
 
 const getDefaultValues = (
-  fields: FieldBlockDefinitionArray,
+  fields: FieldDefinitions,
   initialValues?: Record<string, any>
 ) => {
   let newDefaultValues = {};
 
   const getDefaultValue = (
-    type: DefinitionType,
-    field: FieldBlockDefinition,
+    type: FieldKind,
+    field: FieldDefinition,
     initialValue?: any
   ) => {
     switch (type) {
@@ -76,12 +76,12 @@ const getDefaultValues = (
         return (
           initialValue ?? (field as TextFieldDefinition).defaultValue ?? ""
         );
-      case "Select":
+      case "SelectField":
         return getSelectDefaultValue(
           (field as SelectFieldDefinition).type,
           initialValue
         );
-      case "Boolean":
+      case "BooleanField":
         return initialValue ?? false;
       default:
         return undefined;
@@ -101,10 +101,10 @@ const getDefaultValues = (
 };
 
 type useFieldsProps = {
-  definition: FieldBlockDefinitionArray;
+  definition: FieldDefinitions;
   initialValues?: object;
   rules?: any;
-  displayRules?: DisplayRules;
+  displayRules?: FormDisplayRules;
 };
 
 const useFields = ({
@@ -139,10 +139,12 @@ const useStoreFields = () => {
 
   const validationSchema = useMemo(() => getSchema(validation), [validation]);
 
+  const stepFields = fields[selectedStep] ?? [];
+
   return {
-    fields: fields[selectedStep],
+    fields: stepFields,
     validationSchema,
-    defaultValues: getDefaultValues(fields[selectedStep]),
+    defaultValues: getDefaultValues(stepFields),
     displayRules,
     layoutDefinition: layouts[selectedStep],
   };

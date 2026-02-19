@@ -1,9 +1,9 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
 import {
-  DisplayDataFormValues,
-  DisplayRules,
-  FieldBlockDefinition,
+  DisplayConfigFormValues,
+  FormDisplayRules,
+  FieldDefinition,
 } from "../../../shared/types";
 import { DefinitionBlockForm } from "../DefinitionBlockForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
@@ -16,7 +16,7 @@ import {
 import { useBoundStore } from "../../../store/formEditorStore";
 
 type EditDisplayRulesDataProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
@@ -53,8 +53,8 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
     });
 
   const handleSaveData = useCallback(
-    (data: DisplayDataFormValues) => {
-      let rule: DisplayRules = {
+    (data: DisplayConfigFormValues) => {
+      let rule: FormDisplayRules = {
         [definition.name]: [],
       };
       if (data.isDisabled) {

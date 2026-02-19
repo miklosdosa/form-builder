@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { FormDefinitionSteps } from "../../shared/types";
+import { FormStepDefinitions } from "../../shared/types";
 import {
   DefinitionError,
   FormDefinitionSlice,
@@ -7,7 +7,7 @@ import {
   SliceIntersection,
 } from "../formEditorStore.types";
 
-const initialDefinitions: FormDefinitionSteps = {
+const initialDefinitions: FormStepDefinitions = {
   initial_step: [],
 };
 

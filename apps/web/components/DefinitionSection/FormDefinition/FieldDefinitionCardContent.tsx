@@ -1,4 +1,4 @@
-import { FieldBlockDefinition } from "../../../shared/types";
+import { FieldDefinition } from "../../../shared/types";
 import { Title } from "../../../shared/components/Title";
 import { EditFieldDefinition } from "../EditFieldDefinition/EditFieldDefinition";
 import { Stack } from "@mui/material";
@@ -6,7 +6,7 @@ import { useBoundStore } from "../../../store/formEditorStore";
 import { FieldDefinitionCardActions } from "./FieldDefinitionCardActions";
 
 type FieldDefinitionCardContentProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const FieldDefinitionCardContent = ({

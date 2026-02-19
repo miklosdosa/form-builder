@@ -2,7 +2,7 @@ import { FieldErrors, FieldValues, useFormContext } from "react-hook-form";
 import { FieldBlock } from "../../shared/components/FieldBlock";
 
 import { Stack } from "@mui/material";
-import { DisplayRules, FieldBlockDefinitionArray } from "../../shared/types";
+import { FormDisplayRules, FieldDefinitions } from "../../shared/types";
 import {
   FieldBlockItem,
   GridRenderer,
@@ -12,8 +12,8 @@ import { publish } from "../../events";
 import { Button } from "@repo/ui";
 
 type PreviewFormProps = {
-  fields: FieldBlockDefinitionArray;
-  displayRules?: DisplayRules;
+  fields: FieldDefinitions;
+  displayRules?: FormDisplayRules;
 };
 
 const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {

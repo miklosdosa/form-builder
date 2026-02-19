@@ -17,7 +17,7 @@ const addConfig: { id: string; label: string; payload: PayloadAdd }[] = [
     payload: {
       id: "2",
       name: "2",
-      definitionType: "Select",
+      definitionType: "SelectField",
       type: "select",
     },
   },
@@ -27,7 +27,7 @@ const addConfig: { id: string; label: string; payload: PayloadAdd }[] = [
     payload: {
       id: "3",
       name: "3",
-      definitionType: "DateTime",
+      definitionType: "DateField",
       type: "date",
     },
   },

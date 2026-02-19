@@ -2,9 +2,9 @@ import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Stack } from "@mui/material";
 // import hash from "object-hash";
 import {
-  DisplayRules,
-  FieldBlockDefinitionArray,
-  LayoutDefinition,
+  FormDisplayRules,
+  FieldDefinitions,
+  GridLayout,
 } from "../../shared/types";
 import {
   FieldBlockItem,
@@ -13,9 +13,9 @@ import {
 import { useBoundStore } from "../../store/formEditorStore";
 
 type LayoutFormProps = {
-  fields: FieldBlockDefinitionArray;
-  layoutDefinition?: LayoutDefinition;
-  displayRules?: DisplayRules;
+  fields: FieldDefinitions;
+  layoutDefinition?: GridLayout;
+  displayRules?: FormDisplayRules;
 };
 
 const LayoutForm = ({

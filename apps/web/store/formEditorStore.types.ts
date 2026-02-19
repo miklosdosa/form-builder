@@ -1,19 +1,19 @@
 import {
-  BasicDataFormValues,
-  DisplayRules,
-  FieldBlockDefinition,
-  FormDefinitionLayouts,
-  FormDefinitionSteps,
-  LayoutDefinition,
+  FieldConfigFormValues,
+  FormDisplayRules,
+  FieldDefinition,
+  FormStepLayouts,
+  FormStepDefinitions,
+  GridLayout,
   ValidationRule,
 } from "../shared/types";
 
 type PayloadAdd = Pick<
-  FieldBlockDefinition,
+  FieldDefinition,
   "definitionType" | "type" | "id" | "name"
 >;
-type PayloadUpdate = { currentId: string } & Partial<BasicDataFormValues>;
-type PayloadDelete = Pick<FieldBlockDefinition, "id">;
+type PayloadUpdate = { currentId: string } & Partial<FieldConfigFormValues>;
+type PayloadDelete = Pick<FieldDefinition, "id">;
 
 type ErrorCode = "ID_NOT_UNIQUE" | "NAME_NOT_UNIQUE";
 
@@ -24,7 +24,7 @@ type DefinitionError = {
 };
 
 type Validation = Record<string, ValidationRule[]>;
-type Display = DisplayRules;
+type Display = FormDisplayRules;
 
 type FormStep = {
   id: string;
@@ -32,12 +32,12 @@ type FormStep = {
 };
 
 interface FormDefinitionSlice {
-  definitions: FormDefinitionSteps;
+  definitions: FormStepDefinitions;
   errors: DefinitionError[];
   fieldUnderEdit: string | null;
   addField: (payload: PayloadAdd) => void;
   updateField: (payload: PayloadUpdate) => {
-    fields: FieldBlockDefinition<string>[];
+    fields: FieldDefinition<string>[];
     errors: DefinitionError[];
   };
   deleteField: (payload: PayloadDelete) => void;
@@ -55,8 +55,8 @@ interface DisplaySlice {
 }
 
 interface LayoutSlice {
-  layouts: FormDefinitionLayouts;
-  updateLayout: (payload: LayoutDefinition) => void;
+  layouts: FormStepLayouts;
+  updateLayout: (payload: GridLayout) => void;
 }
 
 interface FormStepSlice {
