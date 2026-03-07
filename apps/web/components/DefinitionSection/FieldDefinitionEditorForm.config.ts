@@ -1,4 +1,4 @@
-import { FieldDefinition, FieldDefinitions, FieldKind, FormDisplayRules, GridLayout, TextFieldDefinition } from "@repo/schemas-types";
+import { FieldDefinitions, FieldKind, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
 const commonFormDefinitionFields: FieldDefinitions = [
   {
@@ -289,6 +289,10 @@ type ValidationRecord = Record<
 const textFormDefinitionValidation: ValidationRecord = {
   id: [RULE_OBJECTS.string, RULE_OBJECTS.required],
   name: [RULE_OBJECTS.string, RULE_OBJECTS.required],
+  label: [RULE_OBJECTS.string],
+  type: [RULE_OBJECTS.string],
+  placeholder: [RULE_OBJECTS.string],
+  defaultValue: [RULE_OBJECTS.string],
 };
 
 const selectFormDefinitionDisplayRules: FormDisplayRules = {
