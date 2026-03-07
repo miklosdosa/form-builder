@@ -1,5 +1,5 @@
 import { FieldBlock } from "..";
-import { FieldDefinitions } from "../../../types";
+import { FieldDefinitions } from "@repo/schemas-types";
 import { memo, useCallback } from "react";
 import { Stack } from "@mui/material";
 import { IconButton } from "@repo/ui";

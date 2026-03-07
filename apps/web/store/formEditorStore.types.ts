@@ -1,12 +1,4 @@
-import {
-  FieldConfigFormValues,
-  FormDisplayRules,
-  FieldDefinition,
-  FormStepLayouts,
-  FormStepDefinitions,
-  GridLayout,
-  ValidationRule,
-} from "../shared/types";
+import { FieldConfigFormValues, FieldDefinition, FormDisplayRules, FormStepDefinitions, FormStepLayouts, GridLayout, ValidationRule } from "@repo/schemas-types";
 
 type PayloadAdd = Pick<
   FieldDefinition,
@@ -37,7 +29,7 @@ interface FormDefinitionSlice {
   fieldUnderEdit: string | null;
   addField: (payload: PayloadAdd) => void;
   updateField: (payload: PayloadUpdate) => {
-    fields: FieldDefinition<string>[];
+    fields: FieldDefinition[];
     errors: DefinitionError[];
   };
   deleteField: (payload: PayloadDelete) => void;

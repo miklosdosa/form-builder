@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { EditDisplayRulesData } from "./EditDisplayRulesData";
-import { FieldDefinition } from "../../../shared/types";
+import { FieldDefinition } from "@repo/schemas-types";
 
 const definition: FieldDefinition = {
   definitionType: "TextField",

@@ -65,8 +65,6 @@ type TextFieldDisplayDataFormValues = {
 
 type ValidationConfigFormValues = TextFieldValidationFormValues;
 
-type FieldConfigFormValues = TextFieldFormValues | SelectFieldFormValues;
-
 type DisplayConfigFormValues = TextFieldDisplayDataFormValues;
 
 type FieldArrayDefinition<T = string> = {
@@ -162,7 +160,6 @@ export type {
   SelectFieldTypes,
   ValidationRule,
   FormDisplayRules,
-  FieldConfigFormValues,
   ValidationConfigFormValues,
   FormValueCondition,
   DisplayConfigFormValues,

@@ -1,11 +1,11 @@
 import { StateCreator } from "zustand";
-import { FormStepDefinitions } from "../../shared/types";
 import {
   DefinitionError,
   FormDefinitionSlice,
   PayloadUpdate,
   SliceIntersection,
 } from "../formEditorStore.types";
+import { FormStepDefinitions } from "@repo/schemas-types";
 
 const initialDefinitions: FormStepDefinitions = {
   initial_step: [],

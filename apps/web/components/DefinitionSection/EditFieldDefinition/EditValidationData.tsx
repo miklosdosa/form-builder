@@ -1,14 +1,11 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
-import {
-  FieldDefinitions,
-  ValidationConfigFormValues,
-  ValidationRule,
-} from "../../../shared/types";
+
 import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
 import { Validation } from "../../../store/formEditorStore.types";
+import { FieldDefinitions, ValidationConfigFormValues, ValidationRule } from "@repo/schemas-types";
 
 type EditValidationDataProps = {
   initFormDefinition: FieldDefinitions;

@@ -1,13 +1,6 @@
-import {
-  FieldKind,
-  FormDisplayRules,
-  FieldDefinition,
-  FieldDefinitions,
-  GridLayout,
-  TextFieldDefinition,
-} from "../../shared/types";
+import { FieldDefinition, FieldDefinitions, FieldKind, FormDisplayRules, GridLayout, TextFieldDefinition } from "@repo/schemas-types";
 
-const commonFormDefinitionFields: FieldDefinitions<keyof FieldDefinition> = [
+const commonFormDefinitionFields: FieldDefinitions = [
   {
     id: "id",
     definitionType: "TextField",
@@ -31,7 +24,7 @@ const commonFormDefinitionFields: FieldDefinitions<keyof FieldDefinition> = [
   },
 ];
 
-const textFormDefinition: FieldDefinitions<keyof TextFieldDefinition> =
+const textFormDefinition: FieldDefinitions =
   [
     ...commonFormDefinitionFields,
     {

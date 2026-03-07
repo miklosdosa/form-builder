@@ -1,7 +1,7 @@
 "use client";
 import { DefaultValues, FormProvider, useForm } from "react-hook-form";
 import { PropsWithChildren, useEffect } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FieldBlockFormProviderProps = {
   defaultValues?: DefaultValues<any>;
@@ -15,10 +15,11 @@ const FieldBlockFormProvider = ({
 }: PropsWithChildren<FieldBlockFormProviderProps>) => {
   const methods = useForm({
     defaultValues,
-    resolver: validationSchema ? yupResolver(validationSchema) : undefined,
+    resolver: validationSchema ? zodResolver(validationSchema) : undefined,
   });
 
   useEffect(() => {
+    console.log("defaultValues", defaultValues);
     if (defaultValues !== undefined) {
       methods.reset({ ...defaultValues });
     }

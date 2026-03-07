@@ -1,9 +1,4 @@
 import { FieldValues, useFormContext } from "react-hook-form";
-import {
-  FormDisplayRules,
-  FieldDefinitions,
-  GridLayout,
-} from "../../shared/types";
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import {Button, useDialog} from "@repo/ui"
 import {
@@ -18,6 +13,7 @@ import {
   FieldBlockItem,
   GridRenderer,
 } from "../../shared/components/GridRenderer";
+import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
 type FieldDefinitionEditorFormProps<T> = {
   formDefinition: FieldDefinitions;
@@ -54,6 +50,7 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
 
   const handleValid = useCallback(
     (data: T) => {
+      console.log("handleValid", data);
       return onSaveData({ ...data });
     },
     [onSaveData]

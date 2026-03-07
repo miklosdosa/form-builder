@@ -1,12 +1,12 @@
-import {
-  BooleanFieldDefinition,
-  DateFieldDefinition,
-  FieldArrayDefinition,
-  FieldDefinition,
-  FieldDisplayRules,
-  SelectFieldDefinition,
-  TextFieldDefinition,
-} from "../../types";
+  import {
+    BooleanFieldDefinition,
+    DateFieldDefinition,
+    FieldArrayDefinition,
+    FieldDefinition,
+    FieldDisplayRules,
+    SelectFieldDefinition,
+    TextFieldDefinition,
+} from "@repo/schemas-types";
 
 type FieldBlockCommonProps = {
   name?: string;

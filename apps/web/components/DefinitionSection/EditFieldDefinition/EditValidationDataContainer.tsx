@@ -1,7 +1,8 @@
-import { FieldDefinition } from "../../../shared/types";
+
 import { useBoundStore } from "../../../store/formEditorStore";
 import { EditValidationData } from "./EditValidationData";
 import { formValidationFormDefinitions } from "../FieldDefinitionEditorForm.config";
+import { FieldDefinition } from "@repo/schemas-types";
 
 type EditValidationDataContainerProps = {
   definition: FieldDefinition;

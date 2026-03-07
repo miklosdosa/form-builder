@@ -1,4 +1,4 @@
-import { FieldDefinition } from "../../types";
+import { FieldDefinition } from "@repo/schemas-types";
 import { FieldBlock } from "../FieldBlock";
 
 type FieldBlockItemProps = {

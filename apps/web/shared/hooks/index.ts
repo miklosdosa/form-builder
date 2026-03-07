@@ -1,15 +1,8 @@
-import * as yup from "yup";
+import { z } from "zod";
 import { useMemo } from "react";
-import {
-  FieldKind,
-  FormDisplayRules,
-  FieldDefinition,
-  FieldDefinitions,
-  SelectFieldDefinition,
-  SelectFieldTypes,
-  TextFieldDefinition,
-} from "../types";
+
 import { useBoundStore } from "../../store/formEditorStore";
+import { SelectFieldTypes, FieldDefinitions, FieldKind, FieldDefinition, TextFieldDefinition, SelectFieldDefinition, FormDisplayRules } from "@repo/schemas-types";
 
 const getSchema = (
   rules?: Record<
@@ -24,27 +17,28 @@ const getSchema = (
   if (!rules) {
     return;
   }
-  let validator: any = yup.string();
-  const shape: Record<string, any> = {};
+  let validator: z.ZodString = z.string();
+  const shape: Record<string, z.ZodTypeAny> = {};
   Object.entries(rules).forEach(([key, rule]) => {
     rule.forEach((r) => {
       switch (r.type) {
         case "string": {
-          validator = yup.string();
+          validator = z.string();
           break;
         }
         case "required":
-          validator = validator.required(r.errorMessage);
+          validator = validator.min(1, r.errorMessage || "This field is required");
           break;
         case "max":
           validator = validator.max(r.value, r.errorMessage);
+          break;
       }
     });
 
     shape[key] = validator;
   });
 
-  return yup.object().shape(shape);
+  return z.object(shape);
 };
 
 const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {

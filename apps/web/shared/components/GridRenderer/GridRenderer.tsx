@@ -1,7 +1,7 @@
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ComponentType } from "react";
-import { GridLayout } from "../../types";
+import { GridLayout } from "@repo/schemas-types";
 import { Box, Grid } from "@mui/material";
 import { IconButton } from "@repo/ui";
 

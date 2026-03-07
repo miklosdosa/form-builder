@@ -1,11 +1,5 @@
 "use client";
-import {
-  BooleanFieldDefinition,
-  DateFieldDefinition,
-  FieldArrayDefinition,
-  SelectFieldDefinition,
-  TextFieldDefinition,
-} from "../../types";
+
 import { TextFieldBlock } from "./TextFieldBlock";
 import { SelectBlock } from "./SelectBlock";
 import { FieldArrayBlock } from "./FieldArrayBlock/FieldArrayBlock";
@@ -13,6 +7,7 @@ import { BooleanBlock } from "./BooleanBlock";
 import { memo } from "react";
 import { FieldBlockProps } from "./FieldBlock.types";
 import { DatePickerBlock } from "./DatePickerBlock";
+import { BooleanFieldDefinition, DateFieldDefinition, FieldArrayDefinition, SelectFieldDefinition, TextFieldDefinition } from "@repo/schemas-types";
 
 const FieldBlock = memo(
   ({ definition, name, auxOnChange, displayRules }: FieldBlockProps) => {

@@ -1,4 +1,4 @@
-import { FieldDefinitions } from "../../../types";
+import { FieldDefinitions } from "@repo/schemas-types";
 import { Row } from "./Row";
 
 type ArrayItemsProps = {

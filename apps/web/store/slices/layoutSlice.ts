@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
 import { SliceIntersection, LayoutSlice } from "../formEditorStore.types";
-import { FormStepLayouts } from "../../shared/types";
+import { FormStepLayouts } from "@repo/schemas-types";
 
 const initialLayouts: FormStepLayouts = {
   initial_step: [],

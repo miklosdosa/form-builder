@@ -1,16 +1,13 @@
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Stack } from "@mui/material";
 // import hash from "object-hash";
-import {
-  FormDisplayRules,
-  FieldDefinitions,
-  GridLayout,
-} from "../../shared/types";
+
 import {
   FieldBlockItem,
   OrderableGridRenderer,
 } from "../../shared/components/GridRenderer";
 import { useBoundStore } from "../../store/formEditorStore";
+import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
 type LayoutFormProps = {
   fields: FieldDefinitions;

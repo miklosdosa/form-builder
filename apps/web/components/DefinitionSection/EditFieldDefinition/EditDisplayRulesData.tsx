@@ -1,10 +1,6 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
-import {
-  DisplayConfigFormValues,
-  FormDisplayRules,
-  FieldDefinition,
-} from "../../../shared/types";
+
 import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
@@ -14,6 +10,7 @@ import {
   formDefinitionValidationRules, */
 } from "../FieldDefinitionEditorForm.config";
 import { useBoundStore } from "../../../store/formEditorStore";
+import { DisplayConfigFormValues, FieldDefinition, FormDisplayRules } from "@repo/schemas-types";
 
 type EditDisplayRulesDataProps = {
   definition: FieldDefinition;

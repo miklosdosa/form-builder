@@ -1,9 +1,10 @@
-import { FieldDefinition } from "../../../shared/types";
+
 import { EditBasicData } from "./EditBasicData";
 import { EditValidationDataContainer } from "./EditValidationDataContainer";
 import { EditDisplayRulesData } from "./EditDisplayRulesData";
 import { publish } from "../../../events";
 import { TabDisplay } from "@repo/ui";
+import { FieldDefinition } from "@repo/schemas-types";
 
 type EditFieldDefinitionProps = { definition: FieldDefinition };
 

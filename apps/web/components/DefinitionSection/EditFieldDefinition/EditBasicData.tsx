@@ -1,9 +1,6 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback } from "react";
-import {
-  FieldConfigFormValues,
-  FieldDefinition,
-} from "../../../shared/types";
+
 import { useBoundStore } from "../../../store/formEditorStore";
 import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
@@ -14,6 +11,7 @@ import {
   fieldEditorFormsByKind,
   formDefinitionValidationRules,
 } from "../FieldDefinitionEditorForm.config";
+import { FieldConfigFormValues, FieldDefinition } from "@repo/schemas-types";
 
 type EditBasicDataProps = {
   definition: FieldDefinition;

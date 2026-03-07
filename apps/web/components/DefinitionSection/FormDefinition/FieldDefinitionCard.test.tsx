@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { FieldDefinitionCard } from "./FieldDefinitionCard";
-import { FieldDefinition } from "../../../shared/types";
+import { FieldDefinition } from "@repo/schemas-types";
 
 describe("FieldDefinitionCard", () => {
   it("should render properly", () => {

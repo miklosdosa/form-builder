@@ -1,6 +1,7 @@
-import { FieldDefinition } from "../../../shared/types";
+
 import { Paper } from "@mui/material";
 import { FieldDefinitionCardContent } from "./FieldDefinitionCardContent";
+import { FieldDefinition } from "@repo/schemas-types";
 
 type FieldDefinitionCardProps = {
   definition: FieldDefinition;
