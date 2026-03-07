@@ -1,39 +1,35 @@
 import { FieldValues, useFormContext } from "react-hook-form";
-import {
-  DisplayRules,
-  FieldBlockDefinitionArray,
-  LayoutDefinition,
-} from "../../shared/types";
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import {Button, useDialog} from "@repo/ui"
 import {
   /* updateSelectRenderOptions, */
   useSetFormErrors,
-} from "./DefinitionBlockForm.helpers";
+} from "./FieldDefinitionEditorForm.helpers";
 import { Stack } from "@mui/material";
-import { useCallback, useEffect } from "react";
-import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
+import { useCallback } from "react";
+import { ConfirmEventDetail, useSubscribe } from "../../events";
 import { DefinitionError } from "../../store/formEditorStore.types";
 import {
   FieldBlockItem,
   GridRenderer,
 } from "../../shared/components/GridRenderer";
+import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
-type DefinitionBlockEditFormProps<T> = {
-  formDefinition: FieldBlockDefinitionArray;
-  displayRules?: DisplayRules;
-  layoutDefinition?: LayoutDefinition;
+type FieldDefinitionEditorFormProps<T> = {
+  formDefinition: FieldDefinitions;
+  displayRules?: FormDisplayRules;
+  layoutDefinition?: GridLayout;
   onSaveData: (data: T) => {
     errors: DefinitionError[];
   };
 };
 
-const DefinitionBlockForm = <T extends FieldValues>({
+const FieldDefinitionEditorForm = <T extends FieldValues>({
   formDefinition,
   onSaveData,
   displayRules,
   layoutDefinition,
-}: DefinitionBlockEditFormProps<T>) => {
+}: FieldDefinitionEditorFormProps<T>) => {
   const { open } = useDialog();
   const { handleSubmit, formState } = useFormContext<T>();
 
@@ -41,19 +37,10 @@ const DefinitionBlockForm = <T extends FieldValues>({
 
   useSetFormErrors();
 
-  /*  const auxOnChange = (value: string | boolean, name: string) => {
-    switch (name) {
-      case "multiple":
-        setValue("type", "select");
-        console.log("set");
-        return;
-      default:
-        return;
-    }
-  }; */
 
   const handleValid = useCallback(
     (data: T) => {
+      console.log("handleValid", data);
       return onSaveData({ ...data });
     },
     [onSaveData]
@@ -92,12 +79,7 @@ const DefinitionBlockForm = <T extends FieldValues>({
     [open, handleSubmit, handleValid, isDirty]
   );
 
-  useEffect(() => {
-    subscribe("onLeaveForm", confirmLeave);
-    return () => {
-      unsubscribe("onLeaveForm", confirmLeave);
-    };
-  }, [confirmLeave]);
+  useSubscribe("onLeaveForm", confirmLeave);
 
   return (
     <form onSubmit={handleSubmit(handleValid)}>
@@ -143,4 +125,4 @@ const DefinitionBlockForm = <T extends FieldValues>({
   );
 };
 
-export { DefinitionBlockForm };
+export { FieldDefinitionEditorForm };

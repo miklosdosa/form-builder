@@ -1,22 +1,20 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback } from "react";
-import {
-  BasicDataFormValues,
-  FieldBlockDefinition,
-} from "../../../shared/types";
+
 import { useBoundStore } from "../../../store/formEditorStore";
-import { DefinitionBlockForm } from "../DefinitionBlockForm";
+import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
 import {
   formDefinitionDisplayRules,
   formDefinitionLayout,
-  formDefinitions,
+  fieldEditorFormsByKind,
   formDefinitionValidationRules,
-} from "../DefinitionBlockForm.config";
+} from "../FieldDefinitionEditorForm.config";
+import { FieldConfigFormValues, FieldDefinition } from "@repo/schemas-types";
 
 type EditBasicDataProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const EditBasicData = ({ definition }: EditBasicDataProps) => {
@@ -24,7 +22,7 @@ const EditBasicData = ({ definition }: EditBasicDataProps) => {
   const updateField = useBoundStore((state) => state.updateField);
   const { formDefinition, defaultValues, validationSchema, displayRules } =
     useFields({
-      definition: formDefinitions[definitionType],
+      definition: fieldEditorFormsByKind[definitionType],
       initialValues: definition,
       rules: formDefinitionValidationRules[definitionType],
       displayRules: formDefinitionDisplayRules[definitionType],
@@ -33,7 +31,7 @@ const EditBasicData = ({ definition }: EditBasicDataProps) => {
   const layoutDefinition = formDefinitionLayout[definitionType];
 
   const handleSaveData = useCallback(
-    (data: BasicDataFormValues) => {
+    (data: FieldConfigFormValues) => {
       console.log(data);
       const result = updateField({ ...data, currentId: definitionId });
       if (result.errors.length === 0) {
@@ -49,7 +47,7 @@ const EditBasicData = ({ definition }: EditBasicDataProps) => {
       defaultValues={defaultValues}
       validationSchema={validationSchema}
     >
-      <DefinitionBlockForm
+      <FieldDefinitionEditorForm
         formDefinition={formDefinition}
         displayRules={displayRules}
         layoutDefinition={layoutDefinition}

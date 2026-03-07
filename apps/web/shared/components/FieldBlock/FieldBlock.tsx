@@ -1,11 +1,5 @@
 "use client";
-import {
-  BooleanDefinition,
-  DateTimeDefinition,
-  FieldArrayDefinition,
-  SelectFieldDefinition,
-  TextFieldDefinition,
-} from "../../types";
+
 import { TextFieldBlock } from "./TextFieldBlock";
 import { SelectBlock } from "./SelectBlock";
 import { FieldArrayBlock } from "./FieldArrayBlock/FieldArrayBlock";
@@ -13,6 +7,7 @@ import { BooleanBlock } from "./BooleanBlock";
 import { memo } from "react";
 import { FieldBlockProps } from "./FieldBlock.types";
 import { DatePickerBlock } from "./DatePickerBlock";
+import { BooleanFieldDefinition, DateFieldDefinition, FieldArrayDefinition, SelectFieldDefinition, TextFieldDefinition } from "@repo/schemas-types";
 
 const FieldBlock = memo(
   ({ definition, name, auxOnChange, displayRules }: FieldBlockProps) => {
@@ -26,7 +21,7 @@ const FieldBlock = memo(
             auxOnChange={auxOnChange}
           />
         );
-      case "Select":
+      case "SelectField":
         return (
           <SelectBlock
             name={name}
@@ -43,19 +38,19 @@ const FieldBlock = memo(
             displayRules={displayRules}
           />
         );
-      case "Boolean":
+      case "BooleanField":
         return (
           <BooleanBlock
             name={name}
-            definition={definition as BooleanDefinition}
+            definition={definition as BooleanFieldDefinition}
             auxOnChange={auxOnChange}
           />
         );
-      case "DateTime":
+      case "DateField":
         return (
           <DatePickerBlock
             name={name}
-            definition={definition as DateTimeDefinition}
+            definition={definition as DateFieldDefinition}
           />
         );
       default:

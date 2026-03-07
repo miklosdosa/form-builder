@@ -1,5 +1,5 @@
 import { FieldValues, UseFormWatch } from "react-hook-form";
-import { FieldDisplayRules, FormValueCondition } from "../../types";
+import { FieldDisplayRules, FormValueCondition } from "@repo/schemas-types";
 
 const evaluateConditions = (
   conditions: FormValueCondition[][],

@@ -1,12 +1,12 @@
-import {
-  BooleanDefinition,
-  DateTimeDefinition,
-  FieldArrayDefinition,
-  FieldBlockDefinition,
-  FieldDisplayRules,
-  SelectFieldDefinition,
-  TextFieldDefinition,
-} from "../../types";
+  import {
+    BooleanFieldDefinition,
+    DateFieldDefinition,
+    FieldArrayDefinition,
+    FieldDefinition,
+    FieldDisplayRules,
+    SelectFieldDefinition,
+    TextFieldDefinition,
+} from "@repo/schemas-types";
 
 type FieldBlockCommonProps = {
   name?: string;
@@ -15,7 +15,7 @@ type FieldBlockCommonProps = {
 };
 
 type FieldBlockProps = FieldBlockCommonProps & {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 type TextFieldBlockProps = FieldBlockCommonProps & {
@@ -23,7 +23,7 @@ type TextFieldBlockProps = FieldBlockCommonProps & {
 };
 
 type BooleanBlockProps = FieldBlockCommonProps & {
-  definition: BooleanDefinition;
+  definition: BooleanFieldDefinition;
 };
 
 type FieldArrayProps = FieldBlockCommonProps & {
@@ -41,7 +41,7 @@ type CheckboxGroupProps = FieldBlockCommonProps & {
 };
 
 type DatePickerBlockProps = FieldBlockCommonProps & {
-  definition: DateTimeDefinition;
+  definition: DateFieldDefinition;
 };
 
 export type {

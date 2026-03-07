@@ -1,15 +1,6 @@
-import {
-  DefinitionType,
-  DisplayRules,
-  FieldBlockDefinition,
-  FieldBlockDefinitionArray,
-  LayoutDefinition,
-  TextFieldDefinition,
-} from "../../shared/types";
+import { FieldDefinitions, FieldKind, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
-const commonFormDefinitionFields: FieldBlockDefinitionArray<
-  keyof FieldBlockDefinition
-> = [
+const commonFormDefinitionFields: FieldDefinitions = [
   {
     id: "id",
     definitionType: "TextField",
@@ -33,12 +24,12 @@ const commonFormDefinitionFields: FieldBlockDefinitionArray<
   },
 ];
 
-const textFormDefinition: FieldBlockDefinitionArray<keyof TextFieldDefinition> =
+const textFormDefinition: FieldDefinitions =
   [
     ...commonFormDefinitionFields,
     {
       id: "type",
-      definitionType: "Select",
+      definitionType: "SelectField",
       multiple: false,
       name: "type",
       label: "Type",
@@ -87,7 +78,7 @@ const textFormDefinition: FieldBlockDefinitionArray<keyof TextFieldDefinition> =
     },
   ];
 
-const selectFormDefinition: FieldBlockDefinitionArray = [
+const selectFormDefinition: FieldDefinitions = [
   ...commonFormDefinitionFields,
   {
     id: "options",
@@ -139,7 +130,7 @@ const selectFormDefinition: FieldBlockDefinitionArray = [
     id: "multiple",
     name: "multiple",
     label: "Multiple",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "multiple",
@@ -151,7 +142,7 @@ const selectFormDefinition: FieldBlockDefinitionArray = [
     id: "type",
     name: "type",
     label: "Render",
-    definitionType: "Select",
+    definitionType: "SelectField",
     type: "select",
     multiple: false,
     options: [
@@ -189,16 +180,16 @@ const selectFormDefinition: FieldBlockDefinitionArray = [
   },
 ];
 
-const dateFieldFormDefinition: FieldBlockDefinitionArray = [
+const dateFieldFormDefinition: FieldDefinitions = [
   ...commonFormDefinitionFields,
 ];
 
-const textFieldValidationFormDefinition: FieldBlockDefinitionArray = [
+const textFieldValidationFormDefinition: FieldDefinitions = [
   {
     id: "isRequired",
     name: "isRequired",
     label: "Reguired",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "required",
@@ -215,12 +206,12 @@ const textFieldValidationFormDefinition: FieldBlockDefinitionArray = [
   },
 ];
 
-const selectFieldValidationFormDefinition: FieldBlockDefinitionArray = [
+const selectFieldValidationFormDefinition: FieldDefinitions = [
   {
     id: "isRequired",
     name: "isRequired",
     label: "Reguired",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "required",
@@ -237,12 +228,12 @@ const selectFieldValidationFormDefinition: FieldBlockDefinitionArray = [
   },
 ];
 
-const textFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
+const textFieldDisplayRulesFormDefinition: FieldDefinitions = [
   {
     id: "disabled",
     name: "isDisabled",
     label: "Disabled",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "disabled",
@@ -254,7 +245,7 @@ const textFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
     id: "readOnly",
     name: "isReadOnly",
     label: "Disabled",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "readOnly",
@@ -264,12 +255,12 @@ const textFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
   },
 ];
 
-const selectFieldDisplayRulesFormDefinition: FieldBlockDefinitionArray = [
+const selectFieldDisplayRulesFormDefinition: FieldDefinitions = [
   {
     id: "disabled",
     name: "isDisabled",
     label: "Disabled",
-    definitionType: "Boolean",
+    definitionType: "BooleanField",
     type: "boolean",
     option: {
       id: "disabled",
@@ -298,9 +289,13 @@ type ValidationRecord = Record<
 const textFormDefinitionValidation: ValidationRecord = {
   id: [RULE_OBJECTS.string, RULE_OBJECTS.required],
   name: [RULE_OBJECTS.string, RULE_OBJECTS.required],
+  label: [RULE_OBJECTS.string],
+  type: [RULE_OBJECTS.string],
+  placeholder: [RULE_OBJECTS.string],
+  defaultValue: [RULE_OBJECTS.string],
 };
 
-const selectFormDefinitionDisplayRules: DisplayRules = {
+const selectFormDefinitionDisplayRules: FormDisplayRules = {
   type: [
     {
       type: "optionSet",
@@ -325,7 +320,7 @@ const selectFormDefinitionDisplayRules: DisplayRules = {
   ],
 };
 
-const textFieldLayout: LayoutDefinition = [
+const textFieldLayout: GridLayout = [
   { i: "id", x: 0, y: 0, w: 12, h: 1 },
   { i: "name", x: 0, y: 1, w: 12, h: 1 },
   { i: "label", x: 0, y: 1, w: 12, h: 1 },
@@ -335,64 +330,58 @@ const textFieldLayout: LayoutDefinition = [
 ];
 
 const formDefinitionValidationRules: Record<
-  DefinitionType,
+  FieldKind,
   ValidationRecord | undefined
 > = {
   TextField: textFormDefinitionValidation,
-  Select: undefined,
+  SelectField: undefined,
   FieldArray: undefined,
-  Boolean: undefined,
-  DateTime: undefined,
+  BooleanField: undefined,
+  DateField: undefined,
 };
 
-const formDefinitionDisplayRules: Record<DefinitionType, DisplayRules> = {
+const formDefinitionDisplayRules: Record<FieldKind, FormDisplayRules> = {
   TextField: {},
-  Select: selectFormDefinitionDisplayRules,
+  SelectField: selectFormDefinitionDisplayRules,
   FieldArray: {},
-  Boolean: {},
-  DateTime: {},
+  BooleanField: {},
+  DateField: {},
 };
 
-const formDefinitions: Record<DefinitionType, FieldBlockDefinitionArray> = {
+const fieldEditorFormsByKind: Record<FieldKind, FieldDefinitions> = {
   TextField: textFormDefinition,
-  Select: selectFormDefinition,
+  SelectField: selectFormDefinition,
   FieldArray: [],
-  Boolean: [],
-  DateTime: dateFieldFormDefinition,
+  BooleanField: [],
+  DateField: dateFieldFormDefinition,
 };
 
-const formValidationFormDefinitions: Record<
-  DefinitionType,
-  FieldBlockDefinitionArray
-> = {
+const formValidationFormDefinitions: Record<FieldKind, FieldDefinitions> = {
   TextField: textFieldValidationFormDefinition,
-  Select: selectFieldValidationFormDefinition,
+  SelectField: selectFieldValidationFormDefinition,
   FieldArray: [],
-  Boolean: [],
-  DateTime: [],
+  BooleanField: [],
+  DateField: [],
 };
 
-const formDisplayRulesFormDefinitions: Record<
-  DefinitionType,
-  FieldBlockDefinitionArray
-> = {
+const formDisplayRulesFormDefinitions: Record<FieldKind, FieldDefinitions> = {
   TextField: textFieldDisplayRulesFormDefinition,
-  Select: selectFieldDisplayRulesFormDefinition,
+  SelectField: selectFieldDisplayRulesFormDefinition,
   FieldArray: [],
-  Boolean: [],
-  DateTime: [],
+  BooleanField: [],
+  DateField: [],
 };
 
-const formDefinitionLayout: Record<DefinitionType, LayoutDefinition> = {
+const formDefinitionLayout: Record<FieldKind, GridLayout> = {
   TextField: textFieldLayout,
-  Select: [],
+  SelectField: [],
   FieldArray: [],
-  Boolean: [],
-  DateTime: [],
+  BooleanField: [],
+  DateField: [],
 };
 
 export {
-  formDefinitions,
+  fieldEditorFormsByKind,
   textFormDefinitionValidation,
   formDefinitionValidationRules,
   formDefinitionDisplayRules,

@@ -1,11 +1,11 @@
 import { render } from "@testing-library/react";
 import { Row } from "./Row";
-import { FieldBlockDefinitionArray } from "../../../types";
+import { FieldDefinitions } from "../../../types";
 import { FieldBlockFormProvider } from "../../FieldBlockFormProvider";
 
 describe("Row", () => {
   it("should render properly", () => {
-    const definition: FieldBlockDefinitionArray = [
+    const definition: FieldDefinitions = [
       {
         id: "1",
         name: "name",

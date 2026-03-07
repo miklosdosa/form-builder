@@ -1,10 +1,11 @@
-import { FieldBlockDefinition } from "../../../shared/types";
+
 import { useBoundStore } from "../../../store/formEditorStore";
 import { EditValidationData } from "./EditValidationData";
-import { formValidationFormDefinitions } from "../DefinitionBlockForm.config";
+import { formValidationFormDefinitions } from "../FieldDefinitionEditorForm.config";
+import { FieldDefinition } from "@repo/schemas-types";
 
 type EditValidationDataContainerProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const EditValidationDataContainer = ({

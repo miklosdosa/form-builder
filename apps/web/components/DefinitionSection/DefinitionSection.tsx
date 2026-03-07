@@ -2,7 +2,7 @@
 import { AddDefinition } from "./AddDefinition";
 import { Stack } from "@mui/material";
 import { Title } from "../../shared/components";
-import { FormDefinitionContainer } from "./FormDefinition";
+import { FieldDefinitionsList } from "./FormDefinition";
 
 const DefinitionSection = () => (
   <Stack component="section" flexDirection="column">
@@ -11,7 +11,7 @@ const DefinitionSection = () => (
       mainProps={{ variant: "h5", component: "h1" }}
     />
     <AddDefinition />
-    <FormDefinitionContainer />
+    <FieldDefinitionsList />
   </Stack>
 );
 

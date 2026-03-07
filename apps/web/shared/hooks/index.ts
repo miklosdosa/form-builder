@@ -1,15 +1,8 @@
-import * as yup from "yup";
+import { z } from "zod";
 import { useMemo } from "react";
-import {
-  DefinitionType,
-  DisplayRules,
-  FieldBlockDefinition,
-  FieldBlockDefinitionArray,
-  SelectFieldDefinition,
-  SelectFieldTypes,
-  TextFieldDefinition,
-} from "../types";
+
 import { useBoundStore } from "../../store/formEditorStore";
+import { SelectFieldTypes, FieldDefinitions, FieldKind, FieldDefinition, TextFieldDefinition, SelectFieldDefinition, FormDisplayRules } from "@repo/schemas-types";
 
 const getSchema = (
   rules?: Record<
@@ -24,27 +17,28 @@ const getSchema = (
   if (!rules) {
     return;
   }
-  let validator: any = yup.string();
-  const shape: Record<string, any> = {};
+  let validator: z.ZodString = z.string();
+  const shape: Record<string, z.ZodTypeAny> = {};
   Object.entries(rules).forEach(([key, rule]) => {
     rule.forEach((r) => {
       switch (r.type) {
         case "string": {
-          validator = yup.string();
+          validator = z.string();
           break;
         }
         case "required":
-          validator = validator.required(r.errorMessage);
+          validator = validator.min(1, r.errorMessage || "This field is required");
           break;
         case "max":
           validator = validator.max(r.value, r.errorMessage);
+          break;
       }
     });
 
     shape[key] = validator;
   });
 
-  return yup.object().shape(shape);
+  return z.object(shape);
 };
 
 const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {
@@ -61,14 +55,14 @@ const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {
 };
 
 const getDefaultValues = (
-  fields: FieldBlockDefinitionArray,
+  fields: FieldDefinitions,
   initialValues?: Record<string, any>
 ) => {
   let newDefaultValues = {};
 
   const getDefaultValue = (
-    type: DefinitionType,
-    field: FieldBlockDefinition,
+    type: FieldKind,
+    field: FieldDefinition,
     initialValue?: any
   ) => {
     switch (type) {
@@ -76,12 +70,12 @@ const getDefaultValues = (
         return (
           initialValue ?? (field as TextFieldDefinition).defaultValue ?? ""
         );
-      case "Select":
+      case "SelectField":
         return getSelectDefaultValue(
           (field as SelectFieldDefinition).type,
           initialValue
         );
-      case "Boolean":
+      case "BooleanField":
         return initialValue ?? false;
       default:
         return undefined;
@@ -101,10 +95,10 @@ const getDefaultValues = (
 };
 
 type useFieldsProps = {
-  definition: FieldBlockDefinitionArray;
+  definition: FieldDefinitions;
   initialValues?: object;
   rules?: any;
-  displayRules?: DisplayRules;
+  displayRules?: FormDisplayRules;
 };
 
 const useFields = ({
@@ -139,10 +133,12 @@ const useStoreFields = () => {
 
   const validationSchema = useMemo(() => getSchema(validation), [validation]);
 
+  const stepFields = fields[selectedStep] ?? [];
+
   return {
-    fields: fields[selectedStep],
+    fields: stepFields,
     validationSchema,
-    defaultValues: getDefaultValues(fields[selectedStep]),
+    defaultValues: getDefaultValues(stepFields),
     displayRules,
     layoutDefinition: layouts[selectedStep],
   };

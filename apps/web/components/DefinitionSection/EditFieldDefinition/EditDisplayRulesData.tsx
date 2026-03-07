@@ -1,22 +1,19 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useMemo } from "react";
-import {
-  DisplayDataFormValues,
-  DisplayRules,
-  FieldBlockDefinition,
-} from "../../../shared/types";
-import { DefinitionBlockForm } from "../DefinitionBlockForm";
+
+import { FieldDefinitionEditorForm } from "../FieldDefinitionEditorForm";
 import { FieldBlockFormProvider } from "../../../shared/components";
 import { useFields } from "../../../shared/hooks";
 import {
   formDisplayRulesFormDefinitions,
   /* formDefinitionDisplayRules,
   formDefinitionValidationRules, */
-} from "../DefinitionBlockForm.config";
+} from "../FieldDefinitionEditorForm.config";
 import { useBoundStore } from "../../../store/formEditorStore";
+import { DisplayConfigFormValues, FieldDefinition, FormDisplayRules } from "@repo/schemas-types";
 
 type EditDisplayRulesDataProps = {
-  definition: FieldBlockDefinition;
+  definition: FieldDefinition;
 };
 
 const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
@@ -53,8 +50,8 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
     });
 
   const handleSaveData = useCallback(
-    (data: DisplayDataFormValues) => {
-      let rule: DisplayRules = {
+    (data: DisplayConfigFormValues) => {
+      let rule: FormDisplayRules = {
         [definition.name]: [],
       };
       if (data.isDisabled) {
@@ -96,7 +93,7 @@ const EditDisplayRulesData = ({ definition }: EditDisplayRulesDataProps) => {
       defaultValues={defaultValues}
       validationSchema={validationSchema}
     >
-      <DefinitionBlockForm
+      <FieldDefinitionEditorForm
         formDefinition={formDefinition}
         displayRules={displayRules}
         onSaveData={handleSaveData}

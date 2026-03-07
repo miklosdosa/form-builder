@@ -1,21 +1,18 @@
 import { FieldBlock } from "../../shared/components/FieldBlock";
 import { Stack } from "@mui/material";
 // import hash from "object-hash";
-import {
-  DisplayRules,
-  FieldBlockDefinitionArray,
-  LayoutDefinition,
-} from "../../shared/types";
+
 import {
   FieldBlockItem,
   OrderableGridRenderer,
 } from "../../shared/components/GridRenderer";
 import { useBoundStore } from "../../store/formEditorStore";
+import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
 
 type LayoutFormProps = {
-  fields: FieldBlockDefinitionArray;
-  layoutDefinition?: LayoutDefinition;
-  displayRules?: DisplayRules;
+  fields: FieldDefinitions;
+  layoutDefinition?: GridLayout;
+  displayRules?: FormDisplayRules;
 };
 
 const LayoutForm = ({

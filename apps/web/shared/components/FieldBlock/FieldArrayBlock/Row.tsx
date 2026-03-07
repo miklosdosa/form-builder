@@ -1,5 +1,5 @@
 import { FieldBlock } from "..";
-import { FieldBlockDefinitionArray } from "../../../types";
+import { FieldDefinitions } from "@repo/schemas-types";
 import { memo, useCallback } from "react";
 import { Stack } from "@mui/material";
 import { IconButton } from "@repo/ui";
@@ -9,7 +9,7 @@ type RowProps = {
   name: string;
   removeLabel?: string;
   onRemove: (index: number) => void;
-  definition: FieldBlockDefinitionArray;
+  definition: FieldDefinitions;
   arrayDirection?: string;
 };
 
