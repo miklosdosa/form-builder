@@ -19,7 +19,6 @@ const FieldBlockFormProvider = ({
   });
 
   useEffect(() => {
-    console.log("defaultValues", defaultValues);
     if (defaultValues !== undefined) {
       methods.reset({ ...defaultValues });
     }

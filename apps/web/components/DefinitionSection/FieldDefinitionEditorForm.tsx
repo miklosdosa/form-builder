@@ -6,8 +6,8 @@ import {
   useSetFormErrors,
 } from "./FieldDefinitionEditorForm.helpers";
 import { Stack } from "@mui/material";
-import { useCallback, useEffect } from "react";
-import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
+import { useCallback } from "react";
+import { ConfirmEventDetail, useSubscribe } from "../../events";
 import { DefinitionError } from "../../store/formEditorStore.types";
 import {
   FieldBlockItem,
@@ -37,16 +37,6 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
 
   useSetFormErrors();
 
-  /*  const auxOnChange = (value: string | boolean, name: string) => {
-    switch (name) {
-      case "multiple":
-        setValue("type", "select");
-        console.log("set");
-        return;
-      default:
-        return;
-    }
-  }; */
 
   const handleValid = useCallback(
     (data: T) => {
@@ -89,12 +79,7 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
     [open, handleSubmit, handleValid, isDirty]
   );
 
-  useEffect(() => {
-    subscribe("onLeaveForm", confirmLeave);
-    return () => {
-      unsubscribe("onLeaveForm", confirmLeave);
-    };
-  }, [confirmLeave]);
+  useSubscribe("onLeaveForm", confirmLeave);
 
   return (
     <form onSubmit={handleSubmit(handleValid)}>

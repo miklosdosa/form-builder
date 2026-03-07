@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 type EventName = "onLeaveForm" | "onStepSubmit" | "other";
 
 interface EventDetailMap {
@@ -32,5 +34,17 @@ function publish<K extends EventName>(eventName: K, data: EventDetailMap[K]) {
   document.dispatchEvent(event);
 }
 
-export { publish, subscribe, unsubscribe };
+const useSubscribe = <K extends EventName>(
+  eventName: K,
+  listener: (event: CustomEvent<EventDetailMap[K]>) => void
+) => {
+  useEffect(() => {
+    subscribe(eventName, listener);
+    return () => {
+      unsubscribe(eventName, listener);
+    };
+  }, [eventName, listener]);
+};
+
+export { publish, subscribe, unsubscribe, useSubscribe };
 export type { EventName, ConfirmEventDetail };

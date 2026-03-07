@@ -84,18 +84,35 @@ const formDefinitionSlice: StateCreator<
     })),
   addField: (payload) =>
     set((state) => {
+      // Determine appropriate default type based on definitionType
+      const getDefaultType = (definitionType?: string) => {
+        switch (definitionType) {
+          case "SelectField":
+            return "select";
+          case "FieldArray":
+            return "array";
+          case "BooleanField":
+            return "boolean";
+          case "DateField":
+            return "date";
+          default:
+            return "text";
+        }
+      };
+
+      const newField = {
+        id: payload.id,
+        name: payload.name,
+        type: payload.type ?? getDefaultType(payload.definitionType),
+        definitionType: payload.definitionType ?? "TextField",
+      };
+
       return {
         definitions: {
           ...state.definitions,
           [state.selectedStep]: [
             ...state.definitions[state.selectedStep],
-            {
-              id: payload.id,
-              name: payload.name,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              type: (payload.type as any) ?? "text",
-              definitionType: payload.definitionType ?? "TextField",
-            },
+            newField as any, // Type assertion needed due to union type complexity
           ],
         },
         layouts: {
