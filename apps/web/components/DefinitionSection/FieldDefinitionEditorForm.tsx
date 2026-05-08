@@ -1,6 +1,6 @@
 import { FieldValues, useFormContext } from "react-hook-form";
 import { FieldBlock } from "../../shared/components/FieldBlock";
-import {Button, useDialog} from "@repo/ui"
+import { Button, useDialog } from "@repo/ui";
 import {
   /* updateSelectRenderOptions, */
   useSetFormErrors,
@@ -13,7 +13,11 @@ import {
   FieldBlockItem,
   GridRenderer,
 } from "../../shared/components/GridRenderer";
-import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
+import {
+  FieldDefinitions,
+  FormDisplayRules,
+  GridLayout,
+} from "@repo/schemas-types";
 
 type FieldDefinitionEditorFormProps<T> = {
   formDefinition: FieldDefinitions;
@@ -37,13 +41,12 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
 
   useSetFormErrors();
 
-
   const handleValid = useCallback(
     (data: T) => {
       console.log("handleValid", data);
       return onSaveData({ ...data });
     },
-    [onSaveData]
+    [onSaveData],
   );
 
   const confirmLeave = useCallback(
@@ -76,7 +79,7 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
         ],
       });
     },
-    [open, handleSubmit, handleValid, isDirty]
+    [open, handleSubmit, handleValid, isDirty],
   );
 
   useSubscribe("onLeaveForm", confirmLeave);
@@ -96,22 +99,9 @@ const FieldDefinitionEditorForm = <T extends FieldValues>({
               key={definition.id}
               definition={definition}
               displayRules={displayRules?.[definition.name]}
-              // auxOnChange={(value) => auxOnChange(value, definition.name)}
             />
           ))
         )}
-
-        {/* {formDefinition.map((definition) => {
-          console.log("map defs");
-          return (
-            <FieldBlock
-              key={definition.id}
-              definition={definition}
-              displayRules={displayRules?.[definition.name]}
-              // auxOnChange={(value) => auxOnChange(value, definition.name)}
-            />
-          );
-        })} */}
         <Stack alignItems="end">
           <Button
             disabled={!isDirty}

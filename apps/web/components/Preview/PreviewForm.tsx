@@ -21,7 +21,7 @@ const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {
   // const formKey = hash(fields);
   const methods = useFormContext();
   const layoutDefinition = useBoundStore(
-    (state) => state.layouts[state.selectedStep]
+    (state) => state.layouts[state.selectedStep],
   );
   const updateLayout = useBoundStore((state) => state.updateLayout);
   const { handleSubmit } = methods;
@@ -54,7 +54,6 @@ const PreviewForm = ({ fields, displayRules }: PreviewFormProps) => {
               key={definition.id}
               definition={definition}
               displayRules={displayRules?.[definition.name]}
-              // auxOnChange={(value) => auxOnChange(value, definition.name)}
             />
           ))
         )}

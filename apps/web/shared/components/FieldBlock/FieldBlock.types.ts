@@ -1,16 +1,15 @@
-  import {
-    BooleanFieldDefinition,
-    DateFieldDefinition,
-    FieldArrayDefinition,
-    FieldDefinition,
-    FieldDisplayRules,
-    SelectFieldDefinition,
-    TextFieldDefinition,
+import {
+  BooleanFieldDefinition,
+  DateFieldDefinition,
+  FieldArrayDefinition,
+  FieldDefinition,
+  FieldDisplayRules,
+  SelectFieldDefinition,
+  TextFieldDefinition,
 } from "@repo/schemas-types";
 
 type FieldBlockCommonProps = {
   name?: string;
-  auxOnChange?: (value: string | boolean) => void;
   displayRules?: FieldDisplayRules[];
 };
 

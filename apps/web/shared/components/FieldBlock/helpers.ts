@@ -1,9 +1,8 @@
-import { FieldValues, UseFormWatch } from "react-hook-form";
 import { FieldDisplayRules, FormValueCondition } from "@repo/schemas-types";
 
 const evaluateConditions = (
   conditions: FormValueCondition[][],
-  watch: UseFormWatch<FieldValues>
+  watch: (fieldName: string) => any,
 ) =>
   conditions
     .map((c) =>
@@ -18,13 +17,13 @@ const evaluateConditions = (
               return false;
           }
         })
-        .every((ir) => !!ir)
+        .every((ir) => !!ir),
     )
     .some((r) => !!r);
 
 const loopRules = (
   rules: FieldDisplayRules[],
-  watch: UseFormWatch<FieldValues>
+  watch: (fieldName: string) => any,
 ) => {
   let i = 0;
   let returnValue: string | boolean | undefined = undefined;
@@ -44,36 +43,50 @@ const loopRules = (
   return returnValue;
 };
 
-const booleanEvaluate = (
-  type: "disabled" | "readOnly",
-  watch: UseFormWatch<FieldValues>,
-  rules?: FieldDisplayRules[]
+const filterRulesByType = (
+  type: "disabled" | "readOnly" | "optionSet" | "arrayDirection",
+  rules?: FieldDisplayRules[],
 ) => {
-  const filteredRules = rules?.filter((r) => r.type === type);
+  if (!rules) {
+    return [];
+  }
+  return rules.filter((r) => r.type === type);
+};
 
-  if (!filteredRules || filteredRules.length === 0) {
+const evaluate = (
+  type: "disabled" | "readOnly" | "optionSet" | "arrayDirection",
+  watch: (fieldName: string) => any,
+  rules?: FieldDisplayRules[],
+) => {
+  const filteredRules = filterRulesByType(type, rules);
+
+  if (filteredRules.length === 0) {
     return false;
   }
 
-  const returnValue = loopRules(filteredRules, watch) as boolean | undefined;
+  const returnValue = loopRules(filteredRules, watch);
 
-  return returnValue !== undefined ? returnValue : false;
+  return returnValue;
+};
+
+const booleanEvaluate = (
+  type: "disabled" | "readOnly",
+  watch: (fieldName: string) => any,
+  rules?: FieldDisplayRules[],
+) => {
+  const res = evaluate(type, watch, rules) as boolean | undefined;
+
+  return res ?? false;
 };
 
 const stringEvaluate = (
   type: "optionSet" | "arrayDirection",
-  watch: UseFormWatch<FieldValues>,
-  rules?: FieldDisplayRules[]
+  watch: (fieldName: string) => any,
+  rules?: FieldDisplayRules[],
 ) => {
-  const filteredRules = rules?.filter((r) => r.type === type);
+  const res = evaluate(type, watch, rules) as string | undefined;
 
-  if (!filteredRules || filteredRules.length === 0) {
-    return undefined;
-  }
-
-  const returnValue = loopRules(filteredRules, watch) as string | undefined;
-
-  return returnValue;
+  return res;
 };
 
 export { evaluateConditions, booleanEvaluate, stringEvaluate };

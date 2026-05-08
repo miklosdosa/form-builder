@@ -7,7 +7,11 @@ import {
   OrderableGridRenderer,
 } from "../../shared/components/GridRenderer";
 import { useBoundStore } from "../../store/formEditorStore";
-import { FieldDefinitions, FormDisplayRules, GridLayout } from "@repo/schemas-types";
+import {
+  FieldDefinitions,
+  FormDisplayRules,
+  GridLayout,
+} from "@repo/schemas-types";
 
 type LayoutFormProps = {
   fields: FieldDefinitions;
@@ -20,7 +24,6 @@ const LayoutForm = ({
   displayRules,
   layoutDefinition,
 }: LayoutFormProps) => {
-  // const formKey = hash(fields);
   const updateLayout = useBoundStore((state) => state.updateLayout);
   return (
     <Stack direction="column" spacing={2}>
@@ -37,7 +40,6 @@ const LayoutForm = ({
             key={definition.id}
             definition={definition}
             displayRules={displayRules?.[definition.name]}
-            // auxOnChange={(value) => auxOnChange(value, definition.name)}
           />
         ))
       )}

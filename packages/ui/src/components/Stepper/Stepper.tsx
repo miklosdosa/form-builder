@@ -16,12 +16,16 @@ const Stepper = ({
 }: StepperProps) => {
   const activeStepIndex = useMemo(
     () => steps.findIndex((step) => step.id === activeStepId),
-    [activeStepId, steps]
+    [activeStepId, steps],
+  );
+  const completedIdSet = useMemo(
+    () => new Set(completedSteps.map((s) => s.id)),
+    [completedSteps],
   );
   return (
     <MuiStepper activeStep={activeStepIndex}>
       {steps.map((step) => {
-        const completed = completedSteps.find((cStep) => cStep.id === step.id);
+        const completed = completedIdSet.has(step.id);
         return (
           <Step key={step.name} completed={!!completed}>
             <StepLabel>{step.name}</StepLabel>
