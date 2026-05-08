@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { BooleanBlockProps } from "./FieldBlock.types";
 import { Checkbox } from "@repo/ui";
 
-const BooleanBlock = ({ definition, name, auxOnChange }: BooleanBlockProps) => {
+const BooleanBlock = ({ definition, name }: BooleanBlockProps) => {
   const { control } = useFormContext();
 
   return (
@@ -18,7 +18,6 @@ const BooleanBlock = ({ definition, name, auxOnChange }: BooleanBlockProps) => {
             checked={!!value}
             onChange={(e) => {
               onChange(e.target.checked);
-              auxOnChange?.(e.target.checked);
             }}
           />
         );

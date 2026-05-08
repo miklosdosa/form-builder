@@ -7,10 +7,16 @@ import { BooleanBlock } from "./BooleanBlock";
 import { memo } from "react";
 import { FieldBlockProps } from "./FieldBlock.types";
 import { DatePickerBlock } from "./DatePickerBlock";
-import { BooleanFieldDefinition, DateFieldDefinition, FieldArrayDefinition, SelectFieldDefinition, TextFieldDefinition } from "@repo/schemas-types";
+import {
+  BooleanFieldDefinition,
+  DateFieldDefinition,
+  FieldArrayDefinition,
+  SelectFieldDefinition,
+  TextFieldDefinition,
+} from "@repo/schemas-types";
 
 const FieldBlock = memo(
-  ({ definition, name, auxOnChange, displayRules }: FieldBlockProps) => {
+  ({ definition, name, displayRules }: FieldBlockProps) => {
     switch (definition.definitionType) {
       case "TextField":
         return (
@@ -18,7 +24,6 @@ const FieldBlock = memo(
             name={name}
             definition={definition as TextFieldDefinition}
             displayRules={displayRules}
-            auxOnChange={auxOnChange}
           />
         );
       case "SelectField":
@@ -27,7 +32,6 @@ const FieldBlock = memo(
             name={name}
             definition={definition as SelectFieldDefinition}
             displayRules={displayRules}
-            auxOnChange={auxOnChange}
           />
         );
       case "FieldArray":
@@ -43,7 +47,6 @@ const FieldBlock = memo(
           <BooleanBlock
             name={name}
             definition={definition as BooleanFieldDefinition}
-            auxOnChange={auxOnChange}
           />
         );
       case "DateField":
@@ -56,7 +59,7 @@ const FieldBlock = memo(
       default:
         return <div />;
     }
-  }
+  },
 );
 
 FieldBlock.displayName = "FieldBlock";

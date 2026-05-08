@@ -2,7 +2,15 @@ import { z } from "zod";
 import { useMemo } from "react";
 
 import { useBoundStore } from "../../store/formEditorStore";
-import { SelectFieldTypes, FieldDefinitions, FieldKind, FieldDefinition, TextFieldDefinition, SelectFieldDefinition, FormDisplayRules } from "@repo/schemas-types";
+import {
+  SelectFieldTypes,
+  FieldDefinitions,
+  FieldKind,
+  FieldDefinition,
+  TextFieldDefinition,
+  SelectFieldDefinition,
+  FormDisplayRules,
+} from "@repo/schemas-types";
 
 const getSchema = (
   rules?: Record<
@@ -12,7 +20,7 @@ const getSchema = (
       errorMessage?: string;
       value?: any;
     }[]
-  >
+  >,
 ) => {
   if (!rules) {
     return;
@@ -27,7 +35,10 @@ const getSchema = (
           break;
         }
         case "required":
-          validator = validator.min(1, r.errorMessage || "This field is required");
+          validator = validator.min(
+            1,
+            r.errorMessage || "This field is required",
+          );
           break;
         case "max":
           validator = validator.max(r.value, r.errorMessage);
@@ -54,44 +65,46 @@ const getSelectDefaultValue = (type: SelectFieldTypes, initialValue?: any) => {
   }
 };
 
+const getDefaultValueByFieldType = (
+  type: FieldKind,
+  field: FieldDefinition,
+  initialValue?: any,
+) => {
+  switch (type) {
+    case "TextField":
+      return initialValue ?? (field as TextFieldDefinition).defaultValue ?? "";
+    case "SelectField":
+      return getSelectDefaultValue(
+        (field as SelectFieldDefinition).type,
+        initialValue,
+      );
+    case "BooleanField":
+      return initialValue ?? false;
+    default:
+      return undefined;
+  }
+};
+
 const getDefaultValues = (
   fields: FieldDefinitions,
-  initialValues?: Record<string, any>
+  initialValues?: Record<string, any>,
 ) => {
-  let newDefaultValues = {};
-
-  const getDefaultValue = (
-    type: FieldKind,
-    field: FieldDefinition,
-    initialValue?: any
-  ) => {
-    switch (type) {
-      case "TextField":
-        return (
-          initialValue ?? (field as TextFieldDefinition).defaultValue ?? ""
-        );
-      case "SelectField":
-        return getSelectDefaultValue(
-          (field as SelectFieldDefinition).type,
-          initialValue
-        );
-      case "BooleanField":
-        return initialValue ?? false;
-      default:
-        return undefined;
-    }
-  };
+  const defaultValues: Record<string, any> = {};
 
   fields.forEach((field) => {
     const name = field.name;
     const initialValue = initialValues?.[name];
 
-    const value = getDefaultValue(field.definitionType, field, initialValue);
+    const value = getDefaultValueByFieldType(
+      field.definitionType,
+      field,
+      initialValue,
+    );
 
-    newDefaultValues = { ...newDefaultValues, [name]: value };
+    defaultValues[name] = value;
   });
 
-  return newDefaultValues;
+  return defaultValues;
 };
 
 type useFieldsProps = {
@@ -109,7 +122,7 @@ const useFields = ({
 }: useFieldsProps) => {
   const defaultValuesMem = useMemo(
     () => getDefaultValues(definition, initialValues),
-    [definition, initialValues]
+    [definition, initialValues],
   );
 
   const validationSchema = useMemo(() => getSchema(rules), [rules]);
