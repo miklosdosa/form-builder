@@ -1,63 +1,5 @@
-import RGL, { WidthProvider } from "react-grid-layout";
-import "react-grid-layout/css/styles.css";
-import { ComponentType } from "react";
-import { GridLayout } from "@repo/schemas-types";
-import { Box, Grid } from "@mui/material";
-import { IconButton } from "@repo/ui";
-
-const ReactGridLayout = WidthProvider(RGL);
-
-type GridRendererProps<T extends { id: string }, P> = {
-  layoutDefinition: GridLayout;
-  items: T[];
-  ItemComponent: ComponentType<{ item: T } & P>;
-  itemComponentProps?: P;
-  onLayoutUpdate?: (layout: GridLayout) => void;
-};
-
-const OrderableGridRenderer = <T extends { id: string }, P = object>({
-  layoutDefinition,
-  items,
-  ItemComponent,
-  itemComponentProps,
-  onLayoutUpdate,
-}: GridRendererProps<T, P>) => {
-  return (
-    <ReactGridLayout
-      className="layout"
-      cols={12}
-      rowHeight={40}
-      draggableHandle=".drag-handle"
-      onLayoutChange={(layout) => {
-        onLayoutUpdate?.(layout);
-      }}
-    >
-      {items.map((item, i) => (
-        <Box
-          key={item.id}
-          data-grid={layoutDefinition[i]}
-          sx={{ "&:hover .drag-handle": { opacity: 1 } }}
-        >
-          <IconButton
-            className="drag-handle"
-            size="small"
-            iconName="ControlCamera"
-            sxProps={{
-              backgroundColor: "white",
-              position: "absolute",
-              opacity: 0,
-              top: -16,
-              left: -16,
-              zIndex: 5,
-              "&:hover": { opacity: 1 },
-            }}
-          />
-          <ItemComponent item={item} {...(itemComponentProps as P)} />
-        </Box>
-      ))}
-    </ReactGridLayout>
-  );
-};
+import { Grid } from "@mui/material";
+import { GridRendererProps } from "./GridRenderer.types";
 
 const GridRenderer = <T extends { id: string }, P = object>({
   layoutDefinition,
@@ -84,4 +26,4 @@ const GridRenderer = <T extends { id: string }, P = object>({
   );
 };
 
-export { GridRenderer, OrderableGridRenderer };
+export { GridRenderer };

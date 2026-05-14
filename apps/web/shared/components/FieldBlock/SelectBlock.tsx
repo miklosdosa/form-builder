@@ -2,29 +2,12 @@ import { Controller, useFormContext } from "react-hook-form";
 import { SelectBlockProps } from "./FieldBlock.types";
 import { FieldGroup } from "../FieldGroup";
 import { CheckboxGroupBlock } from "./CheckboxGroupBlock";
-import { stringEvaluate } from "./helpers";
 import { Radio, Select } from "@repo/ui";
+import { useOptions } from "./hooks";
 
 const SelectBlock = ({ definition, displayRules }: SelectBlockProps) => {
-  const { control, watch } = useFormContext();
-
-  const getOptions = () => {
-    const setRules = displayRules;
-    const defOptionSet = definition.options;
-    if (!defOptionSet) {
-      return [];
-    }
-
-    const optionSetName = stringEvaluate("optionSet", watch, setRules);
-
-    return (
-      defOptionSet.find((o) => o.name === optionSetName)?.values ??
-      defOptionSet[0]?.values ??
-      []
-    );
-  };
-
-  const options = getOptions();
+  const { control } = useFormContext();
+  const options = useOptions(definition.options, displayRules);
 
   switch (definition.type) {
     case "radio":
@@ -35,11 +18,7 @@ const SelectBlock = ({ definition, displayRules }: SelectBlockProps) => {
               name={definition.name}
               control={control}
               render={({ field }) => (
-                <Radio
-                  label={option.label}
-                  {...field}
-                  value={option.value}
-                />
+                <Radio label={option.label} {...field} value={option.value} />
               )}
             />
           ))}

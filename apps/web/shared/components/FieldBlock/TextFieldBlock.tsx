@@ -1,14 +1,14 @@
 import { useFormContext } from "react-hook-form";
-import { getObjectValue } from "../../../utils";
 import { memo } from "react";
 import { TextFieldBlockProps } from "./FieldBlock.types";
 import { TextField } from "@repo/ui";
-import { useDisplayRulesEvaluate } from "./hooks";
+import { useDisplayRulesEvaluate, useError } from "./hooks";
 
 const TextFieldBlock = memo(
   ({ name, definition, displayRules }: TextFieldBlockProps) => {
-    const { register, formState } = useFormContext();
-    const { errors } = formState;
+    const { register } = useFormContext();
+    const { hasError, message } = useError(name ?? definition.name);
+    const { isReadOnly, isDisabled } = useDisplayRulesEvaluate(displayRules);
     const {
       label,
       placeholder,
@@ -17,10 +17,6 @@ const TextFieldBlock = memo(
       name: definitionName,
     } = definition;
 
-    const { isReadOnly, isDisabled } = useDisplayRulesEvaluate(displayRules);
-
-    const error = getObjectValue(errors, name ?? definitionName);
-
     return (
       <TextField
         label={label}
@@ -28,8 +24,8 @@ const TextFieldBlock = memo(
         type={type}
         readOnly={isReadOnly}
         defaultValue={defaultValue}
-        helperText={error?.message as string}
-        error={!!error?.message}
+        helperText={message}
+        error={hasError}
         {...register(name ?? definitionName, { disabled: isDisabled })}
       />
     );
