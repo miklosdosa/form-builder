@@ -1,12 +1,12 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { getObjectValue } from "../../../utils";
 import { memo } from "react";
 import { DatePickerBlockProps } from "./FieldBlock.types";
 import { SingleDatePicker } from "@repo/ui";
+import { useError } from "./hooks";
 
 const DatePickerBlock = memo(({ name, definition }: DatePickerBlockProps) => {
-  const { control, formState } = useFormContext();
-  const { errors } = formState;
+  const { control } = useFormContext();
+  const { hasError, message } = useError(name ?? definition.name);
   const {
     label,
     // type,
@@ -16,11 +16,9 @@ const DatePickerBlock = memo(({ name, definition }: DatePickerBlockProps) => {
     //required,
   } = definition;
 
-  const error = getObjectValue(errors, name ?? definitionName);
-
   return (
     <Controller
-      name={definition.name}
+      name={definitionName}
       control={control}
       render={({ field }) => {
         const { onChange } = field;
@@ -34,8 +32,8 @@ const DatePickerBlock = memo(({ name, definition }: DatePickerBlockProps) => {
             defaultValue={defaultValue}
             inputProps={{
               label,
-              error: !!error?.message,
-              helperText: error?.message as string,
+              error: hasError,
+              helperText: message,
             }}
           />
         );

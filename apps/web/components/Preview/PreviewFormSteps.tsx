@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useBoundStore } from "../../store/formEditorStore";
-import { ConfirmEventDetail, subscribe, unsubscribe } from "../../events";
+import { ConfirmEventDetail, useSubscribe } from "../../events";
 import { Stepper } from "@repo/ui";
 
 const PreviewFormSteps = () => {
@@ -14,7 +14,7 @@ const PreviewFormSteps = () => {
   const handleNextStep = useCallback(
     (e: CustomEvent<ConfirmEventDetail>) => {
       const currentStepIndex = steps.findIndex(
-        (step) => step.id === activeStep
+        (step) => step.id === activeStep,
       );
       const { proceed } = e.detail;
       setCompletedSteps((prev) => [...prev, steps[currentStepIndex]]);
@@ -23,15 +23,10 @@ const PreviewFormSteps = () => {
         setSelectedStep(steps[currentStepIndex + 1].id);
       }
     },
-    [activeStep, setSelectedStep, steps]
+    [activeStep, setSelectedStep, steps],
   );
 
-  useEffect(() => {
-    subscribe("onStepSubmit", handleNextStep);
-    return () => {
-      unsubscribe("onStepSubmit", handleNextStep);
-    };
-  }, [handleNextStep]);
+  useSubscribe("onStepSubmit", handleNextStep);
 
   return (
     <Stepper
